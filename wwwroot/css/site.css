@@ -20,41 +20,36 @@ html {
 }
 
 html {
-    min-height: 100%;
-    width: 100%;
-    height:100%;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 10px;
 }
 
 body {
     background-color: var(--color-cold-grey);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
 }
 
-.container {
-    width: 100%;
-    margin-left: -25px;
-}
-
-    .container ul li form, .container ul li div{
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-    }
-
-
-    .loading{
+.title-header {
+    text-align:center;
     position: absolute;
-    left: 50%;
-    margin-left: -10%;
-    margin-bottom:25px;
-    width:100px;
+    top: -80%;
+    left: 45%;
+    transform: translate(-20%, -180%);
+    padding: 0;
 }
+
+.for-img {
+ 
+}
+    .for-img img {
+        position: absolute;
+        left: 58%;
+        transform: translate(-50%, -100%);
+        padding: 10px;
+    }
 
 input {
     font-size: 20px;
@@ -64,15 +59,11 @@ input {
     border: inherit;
     border-radius: 15px;
     padding: 4px 12px;
-}
-
-label {
     margin-top: 15px;
 }
 
-
-span {
-    margin: 0px;
+::placeholder {
+    color: white;
 }
 
 ul {
@@ -81,19 +72,17 @@ ul {
 }
 
 .btn {
-    margin-top: 30px;
+    margin-top: 20px;
     appearance: button;
     border: 0;
     border-radius: 8px;
     background: var( --color-purpure);
     color: #fff;
-    padding: 4px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100% ;
-    left: 50%;
-    margin-left: 120px;
+    border: 5px solid;
+    position: absolute;
+    left: 58%;
+    transform: translate(-58%, 50%);
+    padding: 6px 12px;
 }
 
     .btn:hover {
