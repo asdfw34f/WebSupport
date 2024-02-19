@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebSupport.Models;
+using RedmineLibrary.Authentication;
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -16,6 +17,21 @@ namespace WebSupport.Controllers.Authentication
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(string username, string password)
+        {
+            if (Login.Login_UsernamePassword(username, password))
+            {
+                ViewBag.username = string.Format("Successfull logged-in", username);
+            }
+            else
+            {
+                ViewBag.username = string.Format("Login Failed", username);
+            }
+
             return View();
         }
 

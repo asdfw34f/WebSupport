@@ -25,7 +25,7 @@
                             </li>
 
                             <li>
-                                <input id="username" type="text"
+                                <input name="username" value="" placeholder="Логин" type="text"
                                        autocomplete="on"
                                        required />
 
@@ -43,8 +43,10 @@
                             </li>
                             <li>
 
-                                <input id="password"
+                                <input name="password"
                                        type="password"
+                                       value=""
+                                       placeholder="Пароль"
                                        autocomplete="on"
                                        required />
                             </li>
@@ -52,8 +54,9 @@
                     </li>
 
                     <li>
-                        <input type="submit" class="btn" value="Войти" title="Войти" />
+                        <input type="submit" class="btn" name="commit" value="Войти" title="Войти" />
                     </li>
+                    @ViewBag.username
                 </ul>
             </form>
         </li>
