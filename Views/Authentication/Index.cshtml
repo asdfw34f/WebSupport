@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Авторизация";
+    Layout = "~/Views/Shared/_LayoutAuthentication.cshtml";
+}
+
+<div class="container">
+    <ul>
+        <li>
+            <div>
+                <img class="loading" src="~/res/account.png" />
+            </div>
+        </li>
+<li>
+            <form method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
+                <ul>
+                    <li>
+                        <ul>
+                            <li>
+
+                                <label for="username">
+                                    Введите ваш логин
+                                </label>
+
+                            </li>
+
+                            <li>
+                                <input id="username" type="text"
+                                       autocomplete="on"
+                                       required />
+
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+
+                                <label for="password">
+                                    Введите ваш пароль
+                                </label>
+                            </li>
+                            <li>
+
+                                <input id="password"
+                                       type="password"
+                                       autocomplete="on"
+                                       required />
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <input type="submit" class="btn" value="Войти" title="Войти" />
+                    </li>
+                </ul>
+            </form>
+        </li>
+    </ul>
+</div>
