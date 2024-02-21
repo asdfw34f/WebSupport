@@ -26,6 +26,7 @@ namespace WebSupport.Controllers.Authentication
             if (Login.Login_UsernamePassword(username, password))
             {
                 ViewBag.username = string.Format("Successfull logged-in", username);
+                return RedirectToRoute("default", new { controller = "Home", action = "Index" });
             }
             else
             {

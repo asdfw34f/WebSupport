@@ -94,3 +94,19 @@ ul {
         outline: none;
         box-shadow: 0 0 0 0#cbd6ee;
     }
+
+form{
+    width:100%;
+    position:center;
+}
+select{
+    padding:2px 8px;
+}
+
+select {
+    display:  table-cell;
+    border: 5px groove;
+    padding: 4px 6px;
+    font-size: 18px;
+    margin-block:5px;
+}
