@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Redmine.Net.Api.Types;
 using RedmineLibrary.Servieces;
+using System.Collections.Generic;
 using System.Diagnostics;
 using WebSupport.Controllers.Authentication;
 using WebSupport.Models;
@@ -12,9 +14,6 @@ namespace WebSupport.Controllers.Home
     {
         private readonly ILogger<AuthenticationController> _logger;
         
-        private readonly List<Project> projects = Manager.DB.Projects;
-        private readonly List<Tracker> trackers = Manager.DB.Trackers;
-        private readonly List<Issue> issues = Manager.DB.Issues;
 
         public HomeController(ILogger<AuthenticationController> logger) 
         {
@@ -24,6 +23,28 @@ namespace WebSupport.Controllers.Home
         // GET: HomeController
         public ActionResult Index()
         {
+            var projects = new List<SelectListItem>();
+            foreach (Project p in Manager.DB.Projects)
+            {
+                projects.Add(new SelectListItem() { Text = p.Name, Value = p.Id.ToString() });
+            }
+            
+            var trackers = new List<SelectListItem>();
+            foreach (Tracker t in Manager.DB.Trackers)
+            {
+                trackers.Add(new SelectListItem() { Text = t.Name, Value = t.Id.ToString() });
+            }
+
+/*            var issues = new List<SelectList>();
+            foreach (Issue i in Manager.DB.Issues)
+            {
+                issues.Add(new SelectListItem() { Text = i.Name, Value = i.Id.ToString() });
+            }
+*/
+
+            ViewBag.Projects = projects;
+            ViewBag.Trackers = trackers;
+
             return View();
         }
 

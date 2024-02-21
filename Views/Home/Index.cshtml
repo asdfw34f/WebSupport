@@ -5,11 +5,9 @@
 @using Redmine.Net.Api.Types;
 @using RedmineLibrary.Servieces;
 @{
-    List<Project> projects = Manager.DB.Projects;
-    List<Tracker> trackers = Manager.DB.Trackers;
-    List<Issue> issues = Manager.DB.Issues;
+    List<SelectListItem>  projects = ViewBag.Projects;
+    List<SelectListItem> trackers = ViewBag.Trackers;
 
-    List<SelectListItem> list = new List<SelectListItem>();
 }
 
 
@@ -17,25 +15,17 @@
     <form asp-controller="Home" asp-action="Add" method="post">
      <ul>
          <li>
-                @{
-                    list = new List<SelectListItem>();
-                    foreach (Project p in projects)
-                    {
-                        list.Add(new SelectListItem() { Text = p.Name, Value = p.Id.ToString() });
-                    }
-         }
-                @Html.DropDownList("projectsItems", list, "Выберите проект")
+                @Html.DropDownList("projectsItems", projects, "Выберите проект")
          </li>
          <li>
-                @{
-                    list = new List<SelectListItem>();
-                    foreach (Tracker t in trackers)
-                    {
-                        list.Add(new SelectListItem() { Text = t.Name, Value = t.Id.ToString() });
-                    }
-                }
-                @Html.DropDownList("trackersItems", list, "Выберите проект")
+                @Html.DropDownList("trackersItems", trackers, "Выберите трэк")
          </li>
+         <li>
+             <input type="text" name="theme" value="" placeholder="Тема задачи" required/>
+         </li>
+            <li>
+                <input type="text" name="description" value="" placeholder="Описание" required/>
+            </li>
          <li>
              <input class="btn" type="submit" value="Подать заявку" action="Index"/>
          </li>
