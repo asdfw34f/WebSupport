@@ -5,11 +5,16 @@
 @using Redmine.Net.Api.Types;
 @using RedmineLibrary.Servieces;
 @{
+    ViewData["Title"] = "Главная";
     List<SelectListItem>  projects = ViewBag.Projects;
     List<SelectListItem> trackers = ViewBag.Trackers;
+    Layout = "~/Views/_LayoutMain.cshtml";
 
+    /*
+     *   --color-orange: #d65f00;
+     --color-blue: #0f4591;
+    */
 }
-
 
 <div>
     <form asp-controller="Home" asp-action="Add" method="post">
