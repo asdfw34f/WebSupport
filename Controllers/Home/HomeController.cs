@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using WebSupport.Controllers.Authentication;
 using WebSupport.Models;
-
+using System.Linq;
 namespace WebSupport.Controllers.Home
 {
     public class HomeController : Controller
     {
         private readonly ILogger<AuthenticationController> _logger;
-        
 
-        public HomeController(ILogger<AuthenticationController> logger) 
+
+        public HomeController(ILogger<AuthenticationController> logger)
         {
             _logger = logger;
         }
@@ -23,29 +23,45 @@ namespace WebSupport.Controllers.Home
         // GET: HomeController
         public ActionResult Index()
         {
-            var projects = new List<SelectListItem>();
-            foreach (Project p in Manager.DB.Projects)
-            {
-                projects.Add(new SelectListItem() { Text = p.Name, Value = p.Id.ToString() });
-            }
-            
-            var trackers = new List<SelectListItem>();
-            foreach (Tracker t in Manager.DB.Trackers)
-            {
-                trackers.Add(new SelectListItem() { Text = t.Name, Value = t.Id.ToString() });
-            }
+            /*     IEnumerable<SelectListItem> projects =
+                     from value in Manager.DB.Projects
+                     select new SelectListItem
+                     {
+                         Text = value.Name,
+                         Value = value.Id.ToString()
+                     };
 
-/*            var issues = new List<SelectList>();
-            foreach (Issue i in Manager.DB.Issues)
-            {
-                issues.Add(new SelectListItem() { Text = i.Name, Value = i.Id.ToString() });
-            }
-*/
-
-            ViewBag.Projects = projects;
-            ViewBag.Trackers = trackers;
+                 IEnumerable<SelectListItem> trackers = 
+                     from value in Manager.DB.Trackers
+                     select new SelectListItem
+                     {
+                         Text = value.Name,
+                         Value = value.Id.ToString()
+                     };
+            */
+        
 
             return View();
+        }
+
+
+
+
+
+        [HttpPost]
+        public ActionResult Index(string project, string tracker, string subject, string description)
+        {
+            if (string.IsNullOrEmpty(project)|| string.IsNullOrEmpty(tracker)) 
+            {
+                ViewBag.CreateResult = "Заполните все поля";
+                return View("Index");
+            }
+            else
+            {
+                Manager.CreateIssue(project, tracker, subject, description);
+                ViewBag.CreateResult = "Задание создано";
+                return View("Index");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -6,34 +6,36 @@
 @using RedmineLibrary.Servieces;
 @{
     ViewData["Title"] = "Главная";
-    List<SelectListItem>  projects = ViewBag.Projects;
-    List<SelectListItem> trackers = ViewBag.Trackers;
     Layout = "~/Views/_LayoutMain.cshtml";
 
-    /*
-     *   --color-orange: #d65f00;
-     --color-blue: #0f4591;
-    */
+    IEnumerable<SelectListItem> project = new SelectList(Manager.DB.Projects, "Id", "Name");
+    IEnumerable<SelectListItem> tracker = new SelectList(Manager.DB.Trackers, "Id", "Name");
+
+    ViewData.Add("project", project);
+    ViewData.Add("tracker", tracker);
 }
 
 <div>
-    <form asp-controller="Home" asp-action="Add" method="post">
-     <ul>
-         <li>
-                @Html.DropDownList("projectsItems", projects, "Выберите проект")
-         </li>
-         <li>
-                @Html.DropDownList("trackersItems", trackers, "Выберите трэк")
-         </li>
-         <li>
-             <input type="text" name="theme" value="" placeholder="Тема задачи" required/>
-         </li>
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <ul>
             <li>
-                <input type="text" name="description" value="" placeholder="Описание" required/>
+                @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
             </li>
-         <li>
-             <input class="btn" type="submit" value="Подать заявку" action="Index"/>
-         </li>
-     </ul>
+            <li>
+                @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, "Выберите трэк")
+            </li>
+            <li>
+                <input type="text" name="subject" value="" placeholder="Тема задачи" required />
+            </li>
+            <li>
+                <input type="text" name="description" value="" placeholder="Описание" required />
+            </li>
+            <li>
+                <input class="btn" type="submit" value="Подать заявку" action="Index" />
+            </li>
+            <li>
+                @ViewBag.CreateResult
+            </li>
+        </ul>
     </form>
 </div>
