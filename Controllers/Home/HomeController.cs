@@ -23,30 +23,8 @@ namespace WebSupport.Controllers.Home
         // GET: HomeController
         public ActionResult Index()
         {
-            /*     IEnumerable<SelectListItem> projects =
-                     from value in Manager.DB.Projects
-                     select new SelectListItem
-                     {
-                         Text = value.Name,
-                         Value = value.Id.ToString()
-                     };
-
-                 IEnumerable<SelectListItem> trackers = 
-                     from value in Manager.DB.Trackers
-                     select new SelectListItem
-                     {
-                         Text = value.Name,
-                         Value = value.Id.ToString()
-                     };
-            */
-        
-
             return View();
         }
-
-
-
-
 
         [HttpPost]
         public ActionResult Index(string project, string tracker, string subject, string description)

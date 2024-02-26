@@ -6,33 +6,27 @@
 
 <div class="main">
     <ul>
-  
+
         <li>
             <div class="for-img">
                 <img class="account-img" src="~/res/account.png" />
             </div>
         </li>
-<li>
+        <li>
             <form class="container" method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
                 <ul>
                     <li>
-                                <input name="username" value="" placeholder="Логин" type="text"
-                                       autocomplete="on"
-                                       required />
-
-                            </li>
-
-                    <li>
-                        
-
-                                <input name="password"
-                                       type="password"
-                                       value=""
-                                       placeholder="Пароль"
-                                       autocomplete="on" />
-                           
+                        <input name="username" value="" placeholder="Логин" type="text"
+                               autocomplete="on"
+                               required />
                     </li>
-
+                    <li>
+                        <input name="password"
+                               type="password"
+                               value=""
+                               placeholder="Пароль"
+                               autocomplete="on" />
+                    </li>
                     <li>
                         <input type="submit" class="btn" name="commit" value="Войти" title="Войти" />
                     </li>
