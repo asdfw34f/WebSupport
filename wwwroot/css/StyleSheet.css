@@ -11,7 +11,10 @@ body {
 
 body,
 html {
+    width: 100%;
     height: 100%;
+    font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+    font-size: 16px;
 }
 
 .nav .open > a,
@@ -24,59 +27,84 @@ form {
     margin: 5px;
 }
 
+
+
 input {
-    font-size: 16px;
     background-color: #0f4591;
     font-style: revert-layer;
     border: 0;
     border-radius: 20px;
-    padding: 1px 10px;
+    padding: 5px 10px;
     position: center;
     border-color: whitesmoke;
-    font-weight: 400;
+    color: whitesmoke;
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.2);
 }
 
-    input[type=text] {
-        font-size: 20px;
-        color: black;
+    input[type=text]::placeholder {
+        color: whitesmoke;
     }
-
-        input[type=text]::placeholder {
-            color: whitesmoke;
+    input[name=description] {
+        background-color: whitesmoke;
+        color: #1e1e2d;
+        border: 1rem;
+        border-color: #0f4591;
+        width: 20rem;
+        height: 10rem;
+        box-shadow: -1px 5px 10px rgba(0, 0, 0, 0.5);
+        
+    }
+        input[name=description]::placeholder {
+            color: #3a3946;
         }
 
-    input[type=password] {
-        font-size: 20px;
-        color: black;
+        input[name=description]:hover {
+            background-color: whitesmoke;
+            color: #1e1e2d;
+            text-shadow: none;
+        }
+        input[type=text]::selection {
+            background: #d65f00;
+            color: whitesmoke;
+            text-shadow: none;
+        }
+
+    input[type=text]::-moz-selection {
+        background: #d65f00;
+        color: whitesmoke;
+        text-shadow: none;
     }
 
-        input[type=password]::placeholder {
-            color: whitesmoke;
-        }
+    input[type=password]::placeholder {
+        color: whitesmoke;
+    }
 
 ul {
-    margin-right: 5%;
     list-style: none;
     display: list-item;
-    font-size: 22px;
 }
 
 li {
     width: 100%;
+    height: 100%;
     margin: 4px;
+    margin-bottom: 1rem;
 }
 
 input:hover {
     background: #0f4591;
     border: 0;
 }
-
+h2{
+    text-align: center;
+    margin-block:0;
+}
 .btn {
-    margin-top: 30px;
+    margin-top: 15px;
     margin-bottom: 5px;
     appearance: button;
     border: 0;
-    border-radius: 10px;
+    border-radius: 20px;
     background-color: #0f4591;
     color: whitesmoke;
     font-weight: 400;
@@ -85,9 +113,8 @@ input:hover {
 
     .btn:hover {
         background-color: #d65f00;
-        padding: 6px 20px;
         color: whitesmoke;
-        font-weight: 600;
+        font-weight: 400;
     }
 
     .btn:focus {
@@ -97,20 +124,42 @@ input:hover {
 
 
 select {
-    background-color: #0f4591;
-    border: none;
-    border-radius: 15px;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 10px;
     color: whitesmoke;
     display: flex;
     width: 100%;
+    box-sizing: border-box;
+    background-color: #0f4591;
+    color: whitesmoke;
+    padding: 5px 10px;
+    width: 100%;
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
 }
-    select:hover {
-        background-color: #d65f00;
+
+    select::before {
+        text-align: center;
+        line-height: 45px;
+        color: whitesmoke;
+        background-color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
     }
 
+    select:hover {
+        background-color: #0f4591;
+    }
+
+    select option {
+        background-color: whitesmoke;
+        color: #0f4591;
+    }
 .main {
-    left: 40%;
-    top: 30%;
+    left: 35%;
+    bottom: 50%;
     background-color: whitesmoke;
     position: absolute;
     display: inline-flex;
@@ -245,12 +294,11 @@ select {
                 color: whitesmoke;
                 text-decoration: none;
                 background-color: #d65f00;
-                border-radius:15px;
+                border-radius: 15px;
             }
 
 .sidebar-header {
     text-align: center;
-    font-size: 20px;
     position: relative;
     width: 100%;
     display: inline-block;
@@ -259,7 +307,7 @@ select {
 .sidebar-brand {
     height: 65px;
     position: relative;
-    background: linear-gradient(to right bottom, #d65f00 21%,  #0f4591 11%);
+    background: linear-gradient(to right bottom, #d65f00 21%, #0f4591 11%);
     padding-top: 0.5rem;
 }
 
@@ -297,68 +345,12 @@ select {
 /*Fontawesome icons*/
 .nav.sidebar-nav li a::before {
     font-family: fontawesome;
-    content: "\f12e";
     vertical-align: baseline;
     display: inline-block;
     padding-right: 5px;
 }
 
-a[href*="#home"]::before {
-    content: "\f015" !important;
-}
 
-a[href*="#about"]::before {
-    content: "\f129" !important;
-}
-
-a[href*="#events"]::before {
-    content: "\f073" !important;
-}
-
-a[href*="#events"]::before {
-    content: "\f073" !important;
-}
-
-a[href*="#team"]::before {
-    content: "\f0c0" !important;
-}
-
-a[href*="#works"]::before {
-    content: "\f0b1" !important;
-}
-
-a[href*="#pictures"]::before {
-    content: "\f03e" !important;
-}
-
-a[href*="#videos"]::before {
-    content: "\f03d" !important;
-}
-
-a[href*="#books"]::before {
-    content: "\f02d" !important;
-}
-
-a[href*="#art"]::before {
-    content: "\f1fc" !important;
-}
-
-a[href*="#awards"]::before {
-    content: "\f02e" !important;
-}
-
-a[href*="#services"]::before {
-    content: "\f013" !important;
-}
-
-a[href*="#contact"]::before {
-    content: "\f086" !important;
-}
-
-a[href*="#followme"]::before {
-    content: "\f099" !important;
-    color: #0084b4;
-}
 /*-------------------------------*/
 /*       Hamburger-Cross         */
 /*-------------------------------*/
@@ -385,7 +377,6 @@ a[href*="#followme"]::before {
         content: '';
         display: block;
         width: 100px;
-        font-size: 14px;
         color: #fff;
         line-height: 32px;
         text-align: center;
@@ -474,7 +465,6 @@ a[href*="#followme"]::before {
         content: '';
         display: block;
         width: 100px;
-        font-size: 14px;
         color: #fff;
         line-height: 32px;
         text-align: center;
