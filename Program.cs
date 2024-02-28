@@ -1,9 +1,18 @@
+using Microsoft.AspNetCore.Authorization;
+using WebSupport.Controllers.Home;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using System.Text;
+using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -18,10 +27,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authentication}/{action=Index}/{id?}");
+
 
 app.Run();

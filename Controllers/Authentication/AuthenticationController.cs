@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using WebSupport.Models;
 using RedmineLibrary.Authentication;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -14,7 +16,6 @@ namespace WebSupport.Controllers.Authentication
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
@@ -26,7 +27,8 @@ namespace WebSupport.Controllers.Authentication
             if (Login.Login_UsernamePassword(username, password))
             {
                 ViewBag.username = string.Format("Successfull logged-in", username);
-                return RedirectToRoute("default", new { controller = "Home", action = "Index" });
+      
+                return RedirectToRoute("default", new { controller = "Home", action = "Index"  });
             }
             else
             {

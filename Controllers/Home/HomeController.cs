@@ -8,19 +8,22 @@ using System.Diagnostics;
 using WebSupport.Controllers.Authentication;
 using WebSupport.Models;
 using System.Linq;
+using RedmineLibrary.Repository;
+using Microsoft.AspNetCore.Authorization;
+
 namespace WebSupport.Controllers.Home
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<AuthenticationController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
-
-        public HomeController(ILogger<AuthenticationController> logger)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         // GET: HomeController
+        [Route("Home")]
         public ActionResult Index()
         {
             return View();
@@ -36,13 +39,14 @@ namespace WebSupport.Controllers.Home
             }
             else
             {
-                Manager.CreateIssue(project, tracker, subject, description);
+                Repository.CreateIssue(project, tracker, subject, description);
                 ViewBag.CreateResult = "Задание создано";
                 return View("Index");
             }
+
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
