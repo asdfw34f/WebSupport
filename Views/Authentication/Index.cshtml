@@ -4,14 +4,8 @@
     Layout = "~/Views/Shared/_LayoutAuthentication.cshtml";
 }
 
-<div class="main">
-    <ul>
-
-        <li>
-            
-        </li>
-        <li>
-            <form class="container" method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
+<div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
                 <ul>
                     <li>
                         <h2>
@@ -19,9 +13,7 @@
                         </h2>
                     </li>
                     <li>
-                        <div>
-                            <img class="account-img" src="~/res/account.png" />
-                        </div>
+                            <img  src="~/res/account.png" />
                     </li>
                     <li>
                         <input name="username" value="" placeholder="Логин" type="text"
@@ -38,9 +30,12 @@
                     <li>
                         <input type="submit" class="btn" name="commit" value="Войти" title="Войти" />
                     </li>
-                    @ViewBag.username
+                    <li>
+                        <label class="bag">
+                            @ViewBag.username
+
+                        </label>
+                    </li>
                 </ul>
             </form>
-        </li>
-    </ul>
 </div>

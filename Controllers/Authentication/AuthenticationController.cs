@@ -34,9 +34,7 @@ namespace WebSupport.Controllers.Authentication
             if (_authenticater.Log_In(username, password, HttpContext).Result)
             {
                 ViewBag.username = string.Format("Successfull logged-in", username);
-            //var home = new RedirectToActionResult("AddIssue", nameof(Home.HomeController), new { controller = "Home", action = "AddIssue" }, null);
                 return Redirect("/");
-                //   return RedirectToRoute("Home", new { controller = "Home", action = "AddIssue" });
             }
             else
             {

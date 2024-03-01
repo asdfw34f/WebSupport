@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Redmine.Net.Api.Types;
+using RedmineLibrary.Repository;
 namespace WebSupport.Controllers.Wiki
 {
     public class WikiController : Controller
@@ -10,14 +11,12 @@ namespace WebSupport.Controllers.Wiki
             _logger = logger;
         }
 
-        [Route("Wiki")]
+        [Route("/Wiki")]
         public IActionResult GetAllWikiPages()
         {
-            var wiki = RedmineLibrary.Repository.Repository.WikiPages.ToList();
-         
-            return View(model:wiki);
+            return View() ;
         }
-        [Route("Wiki/{id:int}")]
+        [Route("/Wiki/{id:int}")]
         public IActionResult GetWikiPage(WikiPage model)
         {
             return View(model:model);

@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <li><a href="#home">Главная</a></li>
+                <li><a href="">Главная</a></li>
                 <li><a asp-controller="Wiki" asp-action="GetAllWikiPages">Wiki</a></li>
                 <li><a href="#about">Контактная информация</a></li>
                 <li><a href="logout">Выйти</a></li>
@@ -49,6 +49,12 @@
             @RenderBody()
         </div>
     </div>
+
+    <footer>
+        <div class="container">
+            <a class="footer-link" href="https://onco62.ru">«Московская городская онкологическая больница № 62 Департамента здравоохранения города Москвы»</a>
+        </div>
+    </footer>
     <!-- /#wrapper -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
