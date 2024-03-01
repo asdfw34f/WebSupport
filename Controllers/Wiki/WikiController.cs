@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using NuGet.Protocol.Core.Types;
+﻿using Microsoft.AspNetCore.Mvc;
 using Redmine.Net.Api.Types;
-using RedmineLibrary.Repository;
-using WebSupport.Controllers.Authentication;
 namespace WebSupport.Controllers.Wiki
 {
     public class WikiController : Controller

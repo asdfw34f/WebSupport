@@ -17,7 +17,7 @@
 }
 
 <div>
-    <form asp-controller="Home" asp-action="Index" method="post">
+    <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>
             <li>
                 @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
@@ -32,11 +32,12 @@
                 <input  type="text" name="description" placeholder="Описание" value="" required />
             </li>
             <li>
-                <input class="btn" type="submit" value="Подать заявку" action="Index" />
-            </li>
-            <li>
                 @ViewBag.CreateResult
             </li>
+            <li>
+                <input class="btn" type="submit" value="Подать заявку" action="AddIssue" />
+            </li>
+   
         </ul>
     </form>
 </div>

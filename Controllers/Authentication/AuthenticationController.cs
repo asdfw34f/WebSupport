@@ -2,8 +2,11 @@
 using System.Diagnostics;
 using WebSupport.Models;
 using RedmineLibrary.Authentication;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using WebSupport.Account;
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -11,31 +14,35 @@ namespace WebSupport.Controllers.Authentication
     {
 
         private readonly ILogger<AuthenticationController> _logger;
-
-        public AuthenticationController(ILogger<AuthenticationController> logger)
+        private readonly IAuthentication _authenticater;
+        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthentication authentication)
         {
             _logger = logger;
+            _authenticater = authentication;
         }
+
+        [Route("/login")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("/login")]
         public IActionResult Index(string username, string password)
         {
-            if (Login.Login_UsernamePassword(username, password))
+            if (_authenticater.Log_In(username, password, HttpContext).Result)
             {
                 ViewBag.username = string.Format("Successfull logged-in", username);
-      
-                return RedirectToRoute("default", new { controller = "Home", action = "Index"  });
+            //var home = new RedirectToActionResult("AddIssue", nameof(Home.HomeController), new { controller = "Home", action = "AddIssue" }, null);
+                return Redirect("/");
+                //   return RedirectToRoute("Home", new { controller = "Home", action = "AddIssue" });
             }
             else
             {
-                ViewBag.username = string.Format("Login Failed", username);
+                Results.Unauthorized();
+                return View("Index");
             }
-
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

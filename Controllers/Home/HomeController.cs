@@ -1,15 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Redmine.Net.Api.Types;
-using RedmineLibrary.Servieces;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebSupport.Controllers.Authentication;
 using WebSupport.Models;
-using System.Linq;
 using RedmineLibrary.Repository;
 using Microsoft.AspNetCore.Authorization;
+using RedmineLibrary.Servieces;
+using RedmineLibrary.Authentication;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace WebSupport.Controllers.Home
 {
@@ -23,25 +19,33 @@ namespace WebSupport.Controllers.Home
         }
 
         // GET: HomeController
-        [Route("Home")]
-        public ActionResult Index()
+        [Route("/")]
+        [Authorize]
+        public ActionResult AddIssue()
         {
+            if (RedmineLibrary.Authentication.Login.User == null)
+            {
+                return Redirect("/logout");
+            }
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(string project, string tracker, string subject, string description)
+        [Route("/")]
+        [Authorize]
+        public ActionResult AddIssue(string project, string tracker, string subject, string description)
         {
             if (string.IsNullOrEmpty(project)|| string.IsNullOrEmpty(tracker)) 
             {
                 ViewBag.CreateResult = "Заполните все поля";
-                return View("Index");
+                return View("AddIssue");
             }
             else
             {
                 Repository.CreateIssue(project, tracker, subject, description);
                 ViewBag.CreateResult = "Задание создано";
-                return View("Index");
+                return View("AddIssue");
             }
 
         }
