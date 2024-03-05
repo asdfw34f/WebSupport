@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using RedmineLibrary.Servieces;
 using RedmineLibrary.Authentication;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using System.Xml;
 
 namespace WebSupport.Controllers.Home
 {
@@ -17,12 +18,20 @@ namespace WebSupport.Controllers.Home
         {
             _logger = logger;
         }
-
+        
+        #region create issue
         // GET: HomeController
         [Route("/")]
         [Authorize]
         public ActionResult AddIssue()
         {
+/*
+            var reader = XmlReader.Create(RedmineLibrary.Authentication.Login.Uri + "/groups/8.xml?include=users", new XmlReaderSettings().);
+
+            // Tuple<int, string> users = new Tuple<int, string>();
+            var ingeeners = reader.Read();
+            Console.WriteLine(ingeeners.ToString());
+*/
             if (RedmineLibrary.Authentication.Login.User == null)
             {
                 return Redirect("/logout");
@@ -49,8 +58,28 @@ namespace WebSupport.Controllers.Home
             }
 
         }
+        #endregion
 
-         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        #region manage
+
+
+        [Route("/manage%0%panel")]
+        [Authorize]
+        public IActionResult Manage()
+        {
+            if (!Manager.isAdmin)
+            {
+                return Redirect("/logout");
+            }
+            else
+            {
+                return View("Manage");
+            }
+        }
+
+        #endregion
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

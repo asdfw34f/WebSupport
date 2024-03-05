@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebSupport.Account;
+using RedmineLibrary.Servieces;
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -33,6 +34,7 @@ namespace WebSupport.Controllers.Authentication
         {
             if (_authenticater.Log_In(username, password, HttpContext).Result)
             {
+
                 ViewBag.username = string.Format("Successfull logged-in", username);
                 return Redirect("/");
             }

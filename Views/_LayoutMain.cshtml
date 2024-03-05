@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using RedmineLibrary.Servieces
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -27,6 +29,11 @@
                     </div>
                 </div>
                 <li><a href="">Главная</a></li>
+                
+                @if(Manager.isAdmin){
+                    <li><a href="manage%0%panel">Управлять</a></li>
+                }
+                
                 <li><a asp-controller="Wiki" asp-action="GetAllWikiPages">Wiki</a></li>
                 <li><a href="#about">Контактная информация</a></li>
                 <li><a href="logout">Выйти</a></li>
