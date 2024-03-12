@@ -26,7 +26,18 @@ namespace WebSupport.Models.DB
         public DbSet<ChangesetParent> ChangesetParents { get; set; }
         public DbSet<Changeset> Changesets { get; set; }
         public DbSet<ChangesetsIssue> ChangesetsIssues { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CustomFieldEnumeration> CustomFieldEnumerations { get; set; }
+        public DbSet<CustomField> CustomFields { get; set; }
+        public DbSet<CustomFieldsProject> CustomFieldsProjects { get; set; }
+        public DbSet<CustomFieldsRole> CustomFieldsRoles { get; set; }
+        public DbSet<CustomFieldsTracker> CustomFieldsTrackers { get; set; }
+        public DbSet<CustomValue> CustomValues { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<EmailAddress> EmailAddresses { get; set; }
+        public DbSet<EnabledModule> EnabledModules { get; set; }
+        public DbSet<Enumeration> Enumerations { get; set; }
+        public DbSet<GroupsUsers> GroupsUsers { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
         {
