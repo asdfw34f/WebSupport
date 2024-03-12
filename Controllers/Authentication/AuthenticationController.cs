@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebSupport.Account;
 using RedmineLibrary.Servieces;
+using WebSupport.Models.DB;
+
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -16,10 +18,12 @@ namespace WebSupport.Controllers.Authentication
 
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IAuthentication _authenticater;
-        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthentication authentication)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthentication authentication, ApplicationContext context)
         {
             _logger = logger;
             _authenticater = authentication;
+
+            var d = context.Users;
         }
 
         [Route("/login")]

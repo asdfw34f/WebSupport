@@ -2,11 +2,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using WebSupport.Account;
+using WebSupport.Models.DB;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+var con = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ApplicationContext>(
+    options => options.UseMySql(
+        con, 
+        ServerVersion.AutoDetect(con)
+        ));
 
 builder.Services.AddTransient<IAuthentication, Authentication>();
 
