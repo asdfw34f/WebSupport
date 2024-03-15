@@ -13,4 +13,4 @@ namespace WebSupport.Models.Entities
         public int? assigned_to_id { get; set; }
     }
 }
-}
+

@@ -38,11 +38,43 @@ namespace WebSupport.Models.DB
         public DbSet<EnabledModule> EnabledModules { get; set; }
         public DbSet<Enumeration> Enumerations { get; set; }
         public DbSet<GroupsUsers> GroupsUsers { get; set; }
+        public DbSet<Import> Imports { get; set; }
+        public DbSet<ImportItem> ImportItems { get; set; }
+        public DbSet<Issue> Issues { get; set; }
+        public DbSet<IssueCategory> IssueCategories { get; set; }
+        public DbSet<IssueRelation> IssueRelations { get; set; }
+        public DbSet<IssueStatus> IssueStatuses { get; set; }
+        public DbSet<JournalDetail> JournalDetails { get; set; }
+        public DbSet<Member>  Members { get; set; }
+        public DbSet<MemberRole> MemberRoles { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<New> News{ get; set; }
+        public DbSet<Project>  Projects{ get; set; }
+        public DbSet<ProjectTracker> ProjectTrackers{ get; set; }
+        public DbSet<Query>  Queries{ get; set; }
+        public DbSet<QueryRole> QueryRoles { get; set; }
+        public DbSet<Role>  Roles{ get; set; }
+        public DbSet<TimeEntry> TimeEntries{ get; set; }
+        public DbSet<Token> Tokens{ get; set; }
+        public DbSet<Tracker> Trackers{ get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options):base(options)
         {
            // Database.EnsureCreated();
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+            optionsBuilder.UseMySql(
+                configuration.GetConnectionString("DefaultConnection"),
+                new MySqlServerVersion(new Version(5, 6, 40))
+                ) ;
+        }
     }
 }

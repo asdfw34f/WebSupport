@@ -12,4 +12,4 @@ namespace WebSupport.Models.Entities
         public string name { get; set; }
     }
 }
-}
+

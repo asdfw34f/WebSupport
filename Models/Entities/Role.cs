@@ -20,4 +20,3 @@ namespace WebSupport.Models.Entities
         public string? settings { get; set; }
     }
 }
-}
