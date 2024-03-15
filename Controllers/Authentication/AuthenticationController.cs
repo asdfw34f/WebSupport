@@ -13,15 +13,12 @@ namespace WebSupport.Controllers.Authentication
 {
     public class AuthenticationController : Controller
     {
-        ApplicationContext context;
-
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IAuthentication _authenticater;
-        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthentication authentication, ApplicationContext context)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IAuthentication authentication)
         {
             _logger = logger;
             _authenticater = authentication;
-            this.context = context;
         }
 
         [Route("/login")]
@@ -32,9 +29,10 @@ namespace WebSupport.Controllers.Authentication
 
         [HttpPost]
         [Route("/login")]
-        public IActionResult Index(string username, string password)
+        public async Task<IActionResult> Index(string username, string password)
         {
-            if (_authenticater.Log_In(username, password, HttpContext, context).Result)
+            var res = await _authenticater.Log_In(username, password, HttpContext);
+            if (res)
             {
 
                 ViewBag.username = string.Format("Successfull logged-in", username);

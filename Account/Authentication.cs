@@ -19,15 +19,17 @@ namespace WebSupport.Account
     public class Authentication : IAuthentication
     {
         IUserRepository repository;
-
-        public Authentication(IUserRepository repository)
+        ApplicationContext applicationContext;
+        public Authentication(IUserRepository repository, ApplicationContext applicationContext)
         {
             this.repository = repository;
+            this.applicationContext = applicationContext;
         }
 
-        async Task<bool> IAuthentication.Log_In(string username, string password, HttpContext context, ApplicationContext appContext)
+        async Task<bool> IAuthentication.Log_In(string username, string password, HttpContext context)
         {
-            var user = await repository.GetUser(username, GetHash(password));
+            var hashed = GetHash(password);
+            var user = await repository.GetUser(username, hashed);
             if (user.Login != "")
             {
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
@@ -51,15 +53,10 @@ namespace WebSupport.Account
             {
                 var hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(text));
 
-                var sb = new StringBuilder(hash.Length * 2);
-
-                foreach (byte b in hash)
-                {
-                    sb.Append(b.ToString("X2").ToLower());
-                }
-                return sb.ToString();
+                byte[] hashedBytes = sha1.ComputeHash(hash);
+                string hashedString = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                return hashedString;
             }
         }
-
     }
 }
