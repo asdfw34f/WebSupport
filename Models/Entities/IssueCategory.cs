@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class IssueCategory
 {
-    [Table("issue_categories")]
-    public class IssueCategory
-    {
-        [Key]
-        public int id { get; set; }
-        public int project_id { get; set; }
-        public string name { get; set; }
-        public int? assigned_to_id { get; set; }
-    }
-}
+    public int Id { get; set; }
 
+    public int ProjectId { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public int? AssignedToId { get; set; }
+}

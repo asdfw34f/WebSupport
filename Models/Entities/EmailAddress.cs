@@ -1,18 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class EmailAddress
 {
-    [Table(name: "email_addresses")]
-    public class EmailAddress
-    {
-        [Key]
-        public int id { get; set; }
-        public int user_id { get; set; }
-        public string? address { get; set; }
-        public byte is_default { get; set; }
-        public byte notify { get; set; }
-        public DateTime? created_on { get; set; }
-        public DateTime? updated_on { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int UserId { get; set; }
+
+    public string Address { get; set; } = null!;
+
+    public bool IsDefault { get; set; }
+
+    public bool? Notify { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public DateTime UpdatedOn { get; set; }
 }

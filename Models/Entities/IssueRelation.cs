@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class IssueRelation
 {
-    [Table("issue_relations")]
-    public class IssueRelation
-    {
-        [Key]
-        public int id { get; set; }
-        public int issue_from_id { get; set; }
-        public int issue_to_id { get; set; }
-        public string relation_type { get; set; }
-        public int? delay { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int IssueFromId { get; set; }
+
+    public int IssueToId { get; set; }
+
+    public string RelationType { get; set; } = null!;
+
+    public int? Delay { get; set; }
 }

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace WebSupport.Models.Entities;
 
-public partial class CustomFieldEnumeration
+public partial class Setting
 {
     public int Id { get; set; }
 
-    public int CustomFieldId { get; set; }
-
     public string Name { get; set; } = null!;
 
-    public bool? Active { get; set; }
+    public string? Value { get; set; }
 
-    public int Position { get; set; }
+    public DateTime? UpdatedOn { get; set; }
 }

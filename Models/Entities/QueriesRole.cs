@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace WebSupport.Models.Entities;
 
-public partial class CustomFieldsRole
+public partial class QueriesRole
 {
-    public int CustomFieldId { get; set; }
+    public int QueryId { get; set; }
 
     public int RoleId { get; set; }
 }

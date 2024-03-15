@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class ChangesetsIssue
 {
-    [Table(name:"changesets_issues")]
-    public class ChangesetsIssue
-    {
-        [Key]
-        public int changeset_id { get; set; }
-        public int isuue_id { get; set; }
-    }
+    public int ChangesetId { get; set; }
+
+    public int IssueId { get; set; }
 }

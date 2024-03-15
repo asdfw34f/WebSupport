@@ -1,22 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Query
 {
-    [Table("queries")]
-    public class Query
-    {
-        [Key]
-        public int id { get; set; }
-        public int? project_id { get; set; }
-        public string name { get; set; }
-        public string? filters { get; set; }
-        public int user_id { get; set; }
-        public string? column_names { get; set; }
-        public string? sort_criteria { get; set; }
-        public string? group_by { get; set; }
-        public string? type { get; set; }
-        public int? visibility { get; set; }
-        public string? options { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int? ProjectId { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public string? Filters { get; set; }
+
+    public int UserId { get; set; }
+
+    public string? ColumnNames { get; set; }
+
+    public string? SortCriteria { get; set; }
+
+    public string? GroupBy { get; set; }
+
+    public string? Type { get; set; }
+
+    public int? Visibility { get; set; }
+
+    public string? Options { get; set; }
 }

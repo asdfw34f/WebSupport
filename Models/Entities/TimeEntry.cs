@@ -1,24 +1,33 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class TimeEntry
 {
-    [Table("time_entries")]
-    public class TimeEntry
-    {
-        [Key]
-        public int id { get; set; }
-        public int project_id { get; set; }
-        public int user_id { get; set; }
-        public int? issue_id { get; set; }
-        public float hours { get; set; }
-        public string? comments { get; set; }
-        public int activity_id { get; set; }
-        public DateTime spent_on { get; set; }
-        public int tyear { get; set; }
-        public int tmonth { get; set; }
-        public int tweek { get; set; }
-        public DateTime created_on { get; set; }
-        public DateTime updated_on { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int ProjectId { get; set; }
+
+    public int UserId { get; set; }
+
+    public int? IssueId { get; set; }
+
+    public float Hours { get; set; }
+
+    public string? Comments { get; set; }
+
+    public int ActivityId { get; set; }
+
+    public DateOnly SpentOn { get; set; }
+
+    public int Tyear { get; set; }
+
+    public int Tmonth { get; set; }
+
+    public int Tweek { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public DateTime UpdatedOn { get; set; }
 }

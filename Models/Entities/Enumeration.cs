@@ -1,20 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Enumeration
 {
-    [Table(name: "enumerations")]
-    public class Enumeration
-    {
-        [Key]
-        public int id { get; set; }
-        public string name { get; set; }
-        public int position { get; set; }
-        public byte is_default { get; set; }
-        public string type { get; set; }
-        public byte active { get; set; }
-        public int project_id { get; set; }
-        public int parent_id { get; set; }
-        public string position_name { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public int? Position { get; set; }
+
+    public bool IsDefault { get; set; }
+
+    public string? Type { get; set; }
+
+    public bool? Active { get; set; }
+
+    public int? ProjectId { get; set; }
+
+    public int? ParentId { get; set; }
+
+    public string? PositionName { get; set; }
 }

@@ -1,22 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Role
 {
-    [Table("roles")]
-    public class Role
-    {
-        [Key]
-        public int id { get; set; }
-        public string name { get; set; }
-        public int? position { get; set; }
-        public byte? assignable { get; set; }
-        public int builtin { get; set; }
-        public string? permissions { get; set; }
-        public string issues_visibility { get; set; }
-        public string users_visibility { get; set; }
-        public string time_entries_visibility { get; set; }
-        public byte all_roles_managed { get; set; }
-        public string? settings { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public int? Position { get; set; }
+
+    public bool? Assignable { get; set; }
+
+    public int Builtin { get; set; }
+
+    public string? Permissions { get; set; }
+
+    public string IssuesVisibility { get; set; } = null!;
+
+    public string UsersVisibility { get; set; } = null!;
+
+    public string TimeEntriesVisibility { get; set; } = null!;
+
+    public bool? AllRolesManaged { get; set; }
+
+    public string? Settings { get; set; }
 }

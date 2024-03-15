@@ -1,35 +1,55 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Issue
 {
-    [Table("issues")]
-    public class Issue
-    {
-        [Key]
-        public int id { get; set; }
-        public int tracker_id { get; set; }
-        public int project_id { get; set; }
-        public string subject { get; set; }
-        public string? description { get; set; }
-        public DateTime? due_date { get; set; }
-        public int? category_id { get; set; }
-        public int status_id { get; set; }
-        public int? assigned_to_id { get; set; }
-        public int priority_id { get; set; }
-        public int? fixed_version_id { get; set; }
-        public int author_id { get; set; }
-        public int lock_version { get; set; }
-        public DateTime? created_on { get; set; }
-        public DateTime? updated_on { get; set; }
-        public DateTime? start_date { get; set; }
-        public int done_ratio { get; set; }
-        public float? estimated_hours { get; set; }
-        public int? parent_id { get; set; }
-        public int? root_id { get; set; }
-        public int? lft { get; set; }
-        public int? rgt { get; set; }
-        public byte is_private { get; set; }
-        public DateTime? closed_on { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int TrackerId { get; set; }
+
+    public int ProjectId { get; set; }
+
+    public string Subject { get; set; } = null!;
+
+    public string? Description { get; set; }
+
+    public DateOnly? DueDate { get; set; }
+
+    public int? CategoryId { get; set; }
+
+    public int StatusId { get; set; }
+
+    public int? AssignedToId { get; set; }
+
+    public int PriorityId { get; set; }
+
+    public int? FixedVersionId { get; set; }
+
+    public int AuthorId { get; set; }
+
+    public int LockVersion { get; set; }
+
+    public DateTime? CreatedOn { get; set; }
+
+    public DateTime? UpdatedOn { get; set; }
+
+    public DateOnly? StartDate { get; set; }
+
+    public int DoneRatio { get; set; }
+
+    public float? EstimatedHours { get; set; }
+
+    public int? ParentId { get; set; }
+
+    public int? RootId { get; set; }
+
+    public int? Lft { get; set; }
+
+    public int? Rgt { get; set; }
+
+    public bool IsPrivate { get; set; }
+
+    public DateTime? ClosedOn { get; set; }
 }

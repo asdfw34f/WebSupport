@@ -1,17 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Token
 {
-    [Table("tokens")]
-    public class Token
-    {
-        [Key]
-        public int id { get; set; }
-        public int user_id { get; set; }
-        public string action { get; set; }
-        public string value { get; set; }
-        public DateTime created_on { get; set; }
-        public DateTime? updated_on { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int UserId { get; set; }
+
+    public string Action { get; set; } = null!;
+
+    public string Value { get; set; } = null!;
+
+    public DateTime CreatedOn { get; set; }
+
+    public DateTime? UpdatedOn { get; set; }
 }

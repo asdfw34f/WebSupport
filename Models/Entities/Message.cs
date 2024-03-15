@@ -1,23 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Message
 {
-    [Table("messages")]
-    public class Message
-    {
-        [Key] 
-        public int id { get; set; }
-        public int board_id { get; set; }
-        public int? parent_id { get; set; }
-        public string subject { get; set; }
-        public string? content { get; set; }
-        public int? author_id { get; set; }
-        public int replies_count { get; set; }
-        public int? last_reply_id { get; set; }
-        public DateTime created_on { get; set; }
-        public DateTime updated_on { get; set; }
-        public byte? locked { get; set; }
-        public int? sticky { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int BoardId { get; set; }
+
+    public int? ParentId { get; set; }
+
+    public string Subject { get; set; } = null!;
+
+    public string? Content { get; set; }
+
+    public int? AuthorId { get; set; }
+
+    public int RepliesCount { get; set; }
+
+    public int? LastReplyId { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public DateTime UpdatedOn { get; set; }
+
+    public bool? Locked { get; set; }
+
+    public int? Sticky { get; set; }
 }

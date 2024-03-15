@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class CustomValue
 {
-    [Table(name: "custom_values")]
-    public class CustomValue
-    {
-        [Key]
-        public int id { get; set; }
-        public string? customized_type { get; set; }
-        public int customized_id { get; set; }
-        public int customized_field_id { get; set; }
-        public string? value { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string CustomizedType { get; set; } = null!;
+
+    public int CustomizedId { get; set; }
+
+    public int CustomFieldId { get; set; }
+
+    public string? Value { get; set; }
 }

@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class IssueStatus
 {
-    [Table("issue_statuses")]
-    public class IssueStatus
-    {
-        [Key]
-        public int id { get; set; }
-        public string name { get; set; }
-        public byte is_closed { get; set; }
-        public int? position { get; set; }
-        public int? default_done_ratio { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
+
+    public bool IsClosed { get; set; }
+
+    public int? Position { get; set; }
+
+    public int? DefaultDoneRatio { get; set; }
 }

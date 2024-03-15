@@ -1,30 +1,45 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml.Linq;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class CustomField
 {
-    [Table(name: "custom_fields")]
-    public class CustomField
-    {
-        [Key]
-        public int id { get; set; }
-        public string? name { get; set; }
-        public string? field_format { get; set; }
-        public string? possible_values { get; set; }
-        public string? regexp { get; set; }
-        public int min_length { get; set; }
-        public int max_length { get; set; }
-        public byte is_required { get; set; }
-        public byte is_for_all { get; set; }
-        public byte is_filter { get; set; }
-        public int position { get; set; }
-        public byte searchable { get; set; }
-        public string? default_value { get; set; }
-        public byte editable { get; set; }
-        public byte visible { get; set; }
-        public byte multiple { get; set; }
-        public string format_store { get; set; }
-        public string description { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string Type { get; set; } = null!;
+
+    public string Name { get; set; } = null!;
+
+    public string FieldFormat { get; set; } = null!;
+
+    public string? PossibleValues { get; set; }
+
+    public string? Regexp { get; set; }
+
+    public int? MinLength { get; set; }
+
+    public int? MaxLength { get; set; }
+
+    public bool IsRequired { get; set; }
+
+    public bool IsForAll { get; set; }
+
+    public bool IsFilter { get; set; }
+
+    public int? Position { get; set; }
+
+    public bool? Searchable { get; set; }
+
+    public string? DefaultValue { get; set; }
+
+    public bool? Editable { get; set; }
+
+    public bool? Visible { get; set; }
+
+    public bool? Multiple { get; set; }
+
+    public string? FormatStore { get; set; }
+
+    public string? Description { get; set; }
 }

@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class WikiContentVersion
 {
-    [Table(name:"wiki_content_versions")]
-    public class WikiContentVersion
-    {
-        [Key]
-        public int id { get; set; }
-        public int wiki_content_id { get; set; }
-        public int page_id { get; set; }
-        public int author_id { get; set; }
-        public string data { get; set; }
-        public string compression { get; set; }
-        public string comments { get; set; }
-        public DateTime updated_on { get; set; }
-        public int version { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int WikiContentId { get; set; }
+
+    public int PageId { get; set; }
+
+    public int? AuthorId { get; set; }
+
+    public byte[]? Data { get; set; }
+
+    public string? Compression { get; set; }
+
+    public string? Comments { get; set; }
+
+    public DateTime UpdatedOn { get; set; }
+
+    public int Version { get; set; }
 }

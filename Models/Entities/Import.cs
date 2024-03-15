@@ -1,20 +1,25 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Import
 {
-    [Table("imports")]
-    public class Import
-    {
-        [Key]
-        public int id { get; set; }
-        public string? type { get; set; }
-        public int user_id { get; set; }
-        public string? filename { get; set; }
-        public string? settings { get; set; }
-        public int? total_items { get; set; }
-        public byte finished { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-    }
+    public int Id { get; set; }
+
+    public string? Type { get; set; }
+
+    public int UserId { get; set; }
+
+    public string? Filename { get; set; }
+
+    public string? Settings { get; set; }
+
+    public int? TotalItems { get; set; }
+
+    public bool Finished { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
 }

@@ -1,17 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class JournalDetail
 {
-    [Table("journal_details")]
-    public class JournalDetail
-    {
-        [Key]
-        public int id { get; set; }
-        public int journal_id { get; set; }
-        public string property { get; set; }
-        public string prop_key { get; set; }
-        public string? old_value { get; set; }
-        public string? value { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int JournalId { get; set; }
+
+    public string Property { get; set; } = null!;
+
+    public string PropKey { get; set; } = null!;
+
+    public string? OldValue { get; set; }
+
+    public string? Value { get; set; }
 }

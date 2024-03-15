@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class WikiRedirect
 {
-    [Table(name:"wiki_redirects")]
-    public class WikiRedirect
-    {
-        [Key]
-        public int id { get; set; }
-        public int wiki_id { get; set; }
-        public string title { get; set; }
-        public string redirects_to { get; set; }
-        public DateTime created_on { get; set; }
-        public int redirects_to_wiki_id { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int WikiId { get; set; }
+
+    public string? Title { get; set; }
+
+    public string? RedirectsTo { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public int RedirectsToWikiId { get; set; }
 }

@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class Member
 {
-    [Table("members")]
-    public class Member
-    {
-        [Key] 
-        public int id { get; set; }
-        public int user_id { get; set; }
-        public int project_id { get; set; }
-        public DateTime? created_on { get; set; }
-        public byte mail_notification { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int UserId { get; set; }
+
+    public int ProjectId { get; set; }
+
+    public DateTime? CreatedOn { get; set; }
+
+    public bool MailNotification { get; set; }
 }

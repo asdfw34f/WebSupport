@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class MemberRole
 {
-    [Table("member_roles")]
-    public class MemberRole
-    {
-        [Key]
-        public int id { get; set; }
-        public int member_id { get; set; }
-        public int role_id { get; set; }
-        public int? inherited_from { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int MemberId { get; set; }
+
+    public int RoleId { get; set; }
+
+    public int? InheritedFrom { get; set; }
 }

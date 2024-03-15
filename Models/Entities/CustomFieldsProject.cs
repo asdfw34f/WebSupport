@@ -1,14 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class CustomFieldsProject
 {
-    [Table(name: "custom_fields_projects")]
-    public class CustomFieldsProject
-    {
-        [Key]
-        public int custom_field_id { get; set; }
-        public int project_id { get; set; }
+    public int CustomFieldId { get; set; }
 
-    }
+    public int ProjectId { get; set; }
 }

@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
-namespace WebSupport.Models.Entities
+namespace WebSupport.Models.Entities;
+
+public partial class ImportItem
 {
-    [Table("import_items")]
-    public class ImportItem
-    {
-        [Key]
-        public int id { get; set; }
-        public int import_id { get; set; }
-        public int position { get; set; }
-        public int? obj_id { get; set; }
-        public string? message { get; set; }
-    }
+    public int Id { get; set; }
+
+    public int ImportId { get; set; }
+
+    public int Position { get; set; }
+
+    public int? ObjId { get; set; }
+
+    public string? Message { get; set; }
 }
