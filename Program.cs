@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using WebSupport.Account;
 using WebSupport.Models.DB;
 using Microsoft.EntityFrameworkCore;
+using WebSupport.Repositories.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<ApplicationContext>(
         con, 
         ServerVersion.AutoDetect(con)
         ));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 builder.Services.AddTransient<IAuthentication, Authentication>();
 

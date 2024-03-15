@@ -12,14 +12,23 @@ using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using WebSupport.Repositories.Users;
 
 namespace WebSupport.Account
 {
     public class Authentication : IAuthentication
     {
+        IUserRepository repository;
+
+        public Authentication(IUserRepository repository)
+        {
+            this.repository = repository;
+        }
+
         async Task<bool> IAuthentication.Log_In(string username, string password, HttpContext context, ApplicationContext appContext)
         {
-            if (ExitUser(username, password, appContext))
+            var user = await repository.GetUser(username, GetHash(password));
+            if (user.Login != "")
             {
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
@@ -27,23 +36,7 @@ namespace WebSupport.Account
 
                 context.Response.Cookies.Append("username", username);
                 context.Response.Cookies.Append("password", password);
-                
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private bool ExitUser(string username, string password, ApplicationContext application)
-        {
-            var hash = GetHash(password);
-
-            var res = application.Users.Where(u => u.login == username && u.hashed_password == hash).Single();
-
-            if (res.login != "")
-            {
+                Account.currentUser = user;
                 return true;
             }
             else

@@ -59,10 +59,10 @@ namespace WebSupport.Controllers.Home
                 context.Issues.Add(
                     new Models.Entities.Issue()
                     {
-                        project_id = Convert.ToInt32(project),
-                        tracker_id = Convert.ToInt32(tracker),
-                        subject = subject,
-                        description = description
+                        ProjectId = Convert.ToInt32(project),
+                        TrackerId = Convert.ToInt32(tracker),
+                        Subject= subject,
+                        Description= description
                     });
 
                 ViewBag.CreateResult = "Задание создано";
