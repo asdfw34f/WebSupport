@@ -1,22 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebSupport.Models;
-using RedmineLibrary.Repository;
 using Microsoft.AspNetCore.Authorization;
-using RedmineLibrary.Servieces;
-using RedmineLibrary.Authentication;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Xml;
+using WebSupport.Models.DB;
+using WebSupport.Account;
 
 namespace WebSupport.Controllers.Home
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        ApplicationContext context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger,  ApplicationContext context)
         {
             _logger = logger;
+            this.context = context;
+            ViewBag.AppContext = context;
         }
         
         #region create issue
@@ -32,7 +34,7 @@ namespace WebSupport.Controllers.Home
             var ingeeners = reader.Read();
             Console.WriteLine(ingeeners.ToString());
 */
-            if (RedmineLibrary.Authentication.Login.User == null)
+            if (Account.Account.isAuthorized == false)
             {
                 return Redirect("/logout");
             }
@@ -52,7 +54,17 @@ namespace WebSupport.Controllers.Home
             }
             else
             {
-                Repository.CreateIssue(project, tracker, subject, description);
+             //   Repository.CreateIssue(project, tracker, subject, description);
+
+                context.Issues.Add(
+                    new Models.Entities.Issue()
+                    {
+                        project_id = Convert.ToInt32(project),
+                        tracker_id = Convert.ToInt32(tracker),
+                        subject = subject,
+                        description = description
+                    });
+
                 ViewBag.CreateResult = "Задание создано";
                 return View("AddIssue");
             }
@@ -62,12 +74,12 @@ namespace WebSupport.Controllers.Home
 
         #region manage
 
-
+/*
         [Route("/manage%0%panel")]
         [Authorize]
         public IActionResult Manage()
         {
-            if (!Manager.isAdmin)
+         /*   if (!Manager.isAdmin)
             {
                 return Redirect("/logout");
             }
@@ -76,7 +88,7 @@ namespace WebSupport.Controllers.Home
                 return View("Manage");
             }
         }
-
+    */
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

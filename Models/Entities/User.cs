@@ -17,7 +17,7 @@ namespace WebSupport.Models.Entities
         public string hashed_password { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
-        public byte isAdmin { get; set; }
+        public byte admin { get; set; }
         public int status { get; set; }
         public DateTime last_login_on { get; set; }
         public string language { get; set; }

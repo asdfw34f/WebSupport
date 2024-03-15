@@ -10,7 +10,7 @@ namespace WebSupport.Models.DB
 {
     public class ApplicationContext:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserPreference> UserPreferences { get; set; } 
         public DbSet<Attachments> Attachments{ get; set; } 
         public DbSet<Watcher> Watchers{ get; set; } 
@@ -67,14 +67,14 @@ namespace WebSupport.Models.DB
         {
             base.OnConfiguring(optionsBuilder);
 
-            IConfigurationRoot configuration = new ConfigurationBuilder()
+           /* IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
             optionsBuilder.UseMySql(
                 configuration.GetConnectionString("DefaultConnection"),
                 new MySqlServerVersion(new Version(5, 6, 40))
-                ) ;
+                ) ;*/
         }
     }
 }

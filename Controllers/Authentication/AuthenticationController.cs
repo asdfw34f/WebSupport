@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebSupport.Models;
-using RedmineLibrary.Authentication;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using WebSupport.Account;
-using RedmineLibrary.Servieces;
 using WebSupport.Models.DB;
 
 
@@ -15,6 +13,7 @@ namespace WebSupport.Controllers.Authentication
 {
     public class AuthenticationController : Controller
     {
+        ApplicationContext context;
 
         private readonly ILogger<AuthenticationController> _logger;
         private readonly IAuthentication _authenticater;
@@ -22,8 +21,7 @@ namespace WebSupport.Controllers.Authentication
         {
             _logger = logger;
             _authenticater = authentication;
-
-            var d = context.Users;
+            this.context = context;
         }
 
         [Route("/login")]
@@ -36,7 +34,7 @@ namespace WebSupport.Controllers.Authentication
         [Route("/login")]
         public IActionResult Index(string username, string password)
         {
-            if (_authenticater.Log_In(username, password, HttpContext).Result)
+            if (_authenticater.Log_In(username, password, HttpContext, context).Result)
             {
 
                 ViewBag.username = string.Format("Successfull logged-in", username);
