@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebSupport.Models.DB;
-using WebSupport.Models.Entities;
+using WebSupport.Entities;
+using User = WebSupport.Entities.User;
 
 namespace WebSupport.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {
-        ApplicationContext _context;
+        RedmineContext _context;
 
-        public UserRepository(ApplicationContext context)
+        public UserRepository(RedmineContext context)
         {
             _context = context;
         }
@@ -54,3 +54,7 @@ namespace WebSupport.Repositories.Users
         }
     }
 }
+
+
+//MySql.Data.EntityFrameworkCore
+//"Server=localhost; Database=redmine;User Id=root;Password=x897ty; Port=3307;"

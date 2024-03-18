@@ -2,21 +2,21 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @using Newtonsoft.Json
-@using WebSupport.Models.DB
-
+@using WebSupport.Entities
+@model RedmineContext
 @{
     ViewData["Title"] = "Главная";
     Layout = "~/Views/_LayoutMain.cshtml";
-
-    ApplicationContext appContext = ViewBag.AppContext;
     
-    IEnumerable<SelectListItem> project = new SelectList(appContext.Projects, "id", "name");
-    IEnumerable<SelectListItem> tracker = new SelectList(appContext.Trackers, "id", "name");
+    RedmineContext appContext = ViewBag.AppContext;
+
+    IEnumerable<SelectListItem> project = new SelectList(Model.Projects.ToList(), "Id", "Name");
+    IEnumerable<SelectListItem> tracker = new SelectList(Model.Trackers.ToList(), "Id", "Name");
 
     ViewData.Add("project", project);
     ViewData.Add("tracker", tracker);
-}
 
+}
 <div>
     <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>

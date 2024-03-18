@@ -4,21 +4,24 @@ using WebSupport.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Xml;
-using WebSupport.Models.DB;
 using WebSupport.Account;
+using WebSupport.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using WebSupport.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebSupport.Controllers.Home
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        ApplicationContext context;
+        RedmineContext context;
 
-        public HomeController(ILogger<HomeController> logger,  ApplicationContext context)
+        public HomeController(ILogger<HomeController> logger, RedmineContext context)
         {
             _logger = logger;
             this.context = context;
-            ViewBag.AppContext = context;
         }
         
         #region create issue
@@ -27,25 +30,18 @@ namespace WebSupport.Controllers.Home
         [Authorize]
         public ActionResult AddIssue()
         {
-/*
-            var reader = XmlReader.Create(RedmineLibrary.Authentication.Login.Uri + "/groups/8.xml?include=users", new XmlReaderSettings().);
-
-            // Tuple<int, string> users = new Tuple<int, string>();
-            var ingeeners = reader.Read();
-            Console.WriteLine(ingeeners.ToString());
-*/
             if (Account.Account.isAuthorized == false)
             {
                 return Redirect("/logout");
             }
 
-            return View();
+            return View(context);
         }
 
         [HttpPost]
         [Route("/")]
         [Authorize]
-        public ActionResult AddIssue(string project, string tracker, string subject, string description)
+        public async Task<ActionResult> AddIssueAsync(string project, string tracker, string subject, string description)
         {
             if (string.IsNullOrEmpty(project)|| string.IsNullOrEmpty(tracker)) 
             {
@@ -57,16 +53,16 @@ namespace WebSupport.Controllers.Home
              //   Repository.CreateIssue(project, tracker, subject, description);
 
                 context.Issues.Add(
-                    new Models.Entities.Issue()
+                    new Entities.Issue()
                     {
                         ProjectId = Convert.ToInt32(project),
                         TrackerId = Convert.ToInt32(tracker),
                         Subject= subject,
                         Description= description
                     });
-
+                await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
-                return View("AddIssue");
+                return View("AddIssue", context);
             }
 
         }
@@ -74,21 +70,30 @@ namespace WebSupport.Controllers.Home
 
         #region manage
 
-/*
+
         [Route("/manage%0%panel")]
         [Authorize]
-        public IActionResult Manage()
+        public async Task<IActionResult> Manage()
         {
-         /*   if (!Manager.isAdmin)
+            var issues = await context.Issues.Where(i => i.CreatedOn > new DateTime(2024, 1, 1) && i.StatusId == 1).ToListAsync();
+            List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
+            foreach(var issue in issues)
             {
-                return Redirect("/logout");
+                var projectName = await context.Projects.FirstOrDefaultAsync(p=>p.Id==issue.ProjectId);
+                var trackerName = await context.Trackers.FirstOrDefaultAsync(t=>t.Id==issue.TrackerId);
+                var author = await context.Users.FindAsync(issue.AuthorId);
+
+                issuesViewModel.Add(
+                    new IssueViewModel(
+                        issue,
+                        projectName.Name,
+                        trackerName.Name,
+                        author.Firstname +' '+ author.Lastname
+                        ));
             }
-            else
-            {
-                return View("Manage");
-            }
+            return View(issuesViewModel);
         }
-    */
+    
         #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

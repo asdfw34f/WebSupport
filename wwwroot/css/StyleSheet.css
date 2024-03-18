@@ -27,6 +27,26 @@ img {
 .nav .open > a:focus {
     background-color: transparent;
 }
+.table {
+    margin: 20px;
+    margin-right:20px;
+    width: 100%;
+    overflow: scroll;
+    overflow-x: auto;
+    display: block;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(0 0% 50%);
+    /* postcss-scrollbar will add the -webkit version automatically! */
+}
+
+.table tbody tr{
+    font-size:16px;
+}
+
+.cell-multi {
+    white-space: pre
+}
 
 form {
     padding: 2% 2%;
@@ -159,6 +179,7 @@ select {
     color: whitesmoke;
     display: flex;
     width: 100%;
+    max-width: 430px;
     box-sizing: border-box;
     background-color: #0f4591;
     color: whitesmoke;
@@ -168,6 +189,8 @@ select {
     -webkit-appearance: button;
     appearance: button;
     outline: none;
+    margin-left: auto;
+    margin-right: auto;
 }
 
     select::before {
@@ -187,8 +210,7 @@ select {
         color: #0f4591;
     }
 .main {
-    width: 100%;
-    max-width: 550px;
+    width: 100vw;
     display: inline-flex;
     margin-bottom: 60px;
     height: auto;

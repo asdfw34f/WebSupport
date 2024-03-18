@@ -1,0 +1,43 @@
+﻿@using WebSupport.Entities
+@using WebSupport.Models.ViewModels
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/_LayoutMain.cshtml";
+}
+
+@model IList<IssueViewModel>
+
+    <h1></h1>
+<div>
+    <table name="table" class="table">
+        <tread>
+            <tr>
+                <th>Проект</th>
+                <th>Трекер</th>
+                <th>Тема</th>
+                <th>Описание</th>
+                <th>Создано</th>
+                <th>Автор</th>
+            </tr>
+        </tread>
+        <tbody>
+   
+            @if (Model.Count() > 0)
+            {
+                foreach (var issue in Model)
+                {
+                    <tr>
+                        <td class="cell-multi">@issue.ProjectName</td>
+                        <td>@issue.TrackerName</td>
+                        <td>@issue.issue.Subject</td>
+                        <td class="cell-multi">@issue.issue.Description</td>
+                        <td>@issue.AuthorName</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
