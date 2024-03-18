@@ -11,16 +11,17 @@
 @model IList<IssueViewModel>
 
     <h1></h1>
-<div>
+<div class="table-scroll">
     <table name="table" class="table">
-        <tread>
-            <tr>
+        <tread class="table-row-tread">
+            <tr class="columns-table">
                 <th>Проект</th>
                 <th>Трекер</th>
                 <th>Тема</th>
                 <th>Описание</th>
                 <th>Создано</th>
                 <th>Автор</th>
+                <th></th>
             </tr>
         </tread>
         <tbody>
@@ -34,7 +35,22 @@
                         <td>@issue.TrackerName</td>
                         <td>@issue.issue.Subject</td>
                         <td class="cell-multi">@issue.issue.Description</td>
+                        @{
+                            if (issue.issue.CreatedOn != null)
+                            {
+                                <td>
+                                    @((DateTime)issue.issue.CreatedOn)
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+
+                                </td>
+                            }
+                        }
                         <td>@issue.AuthorName</td>
+                        <td><a href="issues/submit/@issue.issue.Id">Назначить себя</a></td>
                     </tr>
                 }
             }

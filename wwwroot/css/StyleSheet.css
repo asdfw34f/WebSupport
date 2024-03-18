@@ -3,6 +3,112 @@
     --color-blue: #0f4591;
 }
 
+
+/* IPads */
+@media screen and (max-width: 780px) {
+
+}
+
+/* Simple phones*/
+@media screen and (max-width: 600px) {
+    table {
+        border: 0;
+        overflow: scroll;
+    }
+
+        table thead {
+            display:  none;
+            
+        }
+
+        table tr {
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 2px solid #ddd;
+        }
+        table th {
+            display:none;
+            color: white;
+            background-color: white;
+            text-transform: unset;
+            font-size: 18px;
+            letter-spacing: normal;
+        }
+        table td {
+            display: block;
+            text-align: right;
+            font-size: 13px;
+            border-bottom: 1px dotted #ccc;
+            border-right: 1px solid transparent;
+            font-size: 18px;
+        }
+
+            table td:last-child {
+                border-bottom: 0;
+            }
+
+            table td:before {
+                content: attr(data-label);
+                float: left;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+}
+
+
+.table-scroll {
+    height: 100vh;
+    overflow: auto;
+    position: center;
+
+}
+.table {
+    text-align: center;
+    display: inline-block;
+    background-color: #fff;
+    padding: 2rem 2rem;
+    color: #000;
+    height:100vh;
+}
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: 10px;
+    padding: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    table tr {
+        border: 1px solid #ddd;
+        padding: 5px;
+        font-size: 17px;
+    }
+
+    table th, table td {
+        padding: 10px;
+        text-align: center;
+        border-right: 1px solid #ddd;
+    }
+
+    table th {
+        color: black;
+        background-color: whitesmoke;
+        text-transform: capitalize;
+        font-size: 18px;
+        letter-spacing:  normal;
+    }
+.table-row-tread {
+    background-color: aqua;
+}
+.columns-table {
+    background-color: aqua;
+    color: black;
+}
+
+
+
 body {
     position: relative;
     overflow-x: hidden;
@@ -27,26 +133,7 @@ img {
 .nav .open > a:focus {
     background-color: transparent;
 }
-.table {
-    margin: 20px;
-    margin-right:20px;
-    width: 100%;
-    overflow: scroll;
-    overflow-x: auto;
-    display: block;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: hsl(0 0% 50%);
-    /* postcss-scrollbar will add the -webkit version automatically! */
-}
 
-.table tbody tr{
-    font-size:16px;
-}
-
-.cell-multi {
-    white-space: pre
-}
 
 form {
     padding: 2% 2%;

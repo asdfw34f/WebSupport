@@ -22,6 +22,7 @@ namespace WebSupport.Controllers.Home
         {
             _logger = logger;
             this.context = context;
+
         }
         
         #region create issue
@@ -58,7 +59,9 @@ namespace WebSupport.Controllers.Home
                         ProjectId = Convert.ToInt32(project),
                         TrackerId = Convert.ToInt32(tracker),
                         Subject= subject,
-                        Description= description
+                        Description= description,
+                        AuthorId = Account.Account.currentUser.Id,
+                        StatusId = 1
                     });
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
@@ -75,7 +78,8 @@ namespace WebSupport.Controllers.Home
         [Authorize]
         public async Task<IActionResult> Manage()
         {
-            var issues = await context.Issues.Where(i => i.CreatedOn > new DateTime(2024, 1, 1) && i.StatusId == 1).ToListAsync();
+            var issues = await context.Issues.Where(i => i.StatusId == 1).ToListAsync();
+            issues.OrderByDescending(i => i.Id);
             List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
             foreach(var issue in issues)
             {
@@ -93,8 +97,25 @@ namespace WebSupport.Controllers.Home
             }
             return View(issuesViewModel);
         }
-    
+
         #endregion
+
+        [HttpGet]
+        [Authorize]
+        [Route("issues/submit/{id?}")]
+        public async Task<IActionResult> Submit(int id)
+        {
+            var issue = await context.Issues.FindAsync(id);
+            if (issue != null)
+            {
+                issue.AssignedToId = Account.Account.currentUser.Id;
+                context.Issues.Update(issue);
+                await context.SaveChangesAsync();
+            }
+
+            return Redirect("/manage%0%panel");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

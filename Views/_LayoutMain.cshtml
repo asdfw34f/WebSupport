@@ -28,18 +28,15 @@
                         </div>
                     </div>
                 </div>
-                <li><a href="">Главная</a></li>
+                <li><a asp-controller="Home" asp-action="AddIssue">Главная</a></li>
         
                 @if(Account.isAuthorized = true && Account.currentUser != null)
                 {
                     if (Account.currentUser.Admin)
                     {
                         <li><a href="manage%0%panel">Управлять</a></li>
-
                     }
                 }
-                
-
                 
                 <li><a asp-controller="Wiki" asp-action="GetAllWikiPages">Wiki</a></li>
                 <li><a href="#about">Контактная информация</a></li>
