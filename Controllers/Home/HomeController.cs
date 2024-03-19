@@ -74,7 +74,7 @@ namespace WebSupport.Controllers.Home
         #region manage
 
 
-        [Route("/manage%0%panel")]
+        [Route("/manager/issue/new")]
         [Authorize]
         public async Task<IActionResult> Manage()
         {
@@ -101,7 +101,7 @@ namespace WebSupport.Controllers.Home
 
         [HttpGet]
         [Authorize]
-        [Route("issues/submit/{id?}")]
+        [Route("manager/issue/submit/{id?}")]
         public async Task<IActionResult> Submit(int id)
         {
             var issue = await context.Issues.FindAsync(id);
@@ -119,7 +119,7 @@ namespace WebSupport.Controllers.Home
 
         [HttpGet]
         [Authorize]
-        [Route("manage/issue/myself")]
+        [Route("account/issue/myself")]
         public async Task<IActionResult> ViewMyIssue()
         {
             var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id || i.AssignedToId == Account.Account.currentUser.Id).ToListAsync();

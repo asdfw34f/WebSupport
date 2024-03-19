@@ -24,16 +24,22 @@
     <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>
             <li>
+                <label for="">Проект к которому относится предстоящая задача</label>
                 @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
             </li>
             <li>
-                @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, "Выберите трэк")
+                <label for="">Трек для назначения исполнителя</label>
+                @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, "Выберите трек")
             </li>
             <li>
+                <label for="">Кратко с чем связано</label>
+                <br />
                 <input type="text" name="subject" value="" placeholder="Тема задачи" required />
             </li>
             <li>
-                <input  type="text" name="description" placeholder="Описание" value="" required />
+                <label for="">Суть задачи</label>
+                <br />
+                <textarea autocomplete="off" type="text" cols="40" rows="10" name="description" placeholder="Описание" value="" required></textarea>
             </li>
             <li>
                 <label class="bag">

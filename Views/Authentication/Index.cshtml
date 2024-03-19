@@ -5,13 +5,11 @@
 }
 
 <div>
-            <form method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
+    <h2 style="margin-top:5px;">Техническая поддержка</h2>
+    <hr align="right" width="100%" size="10" color="#0f4591" style="margin-top:10px;" />
+    <br />
+    <form method="post" enctype="multipart/form-data" asp-controller="Authentication" asp-action="Index">
                 <ul>
-                    <li>
-                        <h2>
-                            Техническая поддержка
-                        </h2>
-                    </li>
                     <li>
                             <img  src="~/res/account.png" />
                     </li>
@@ -27,8 +25,9 @@
                                placeholder="Пароль"
                                autocomplete="on" />
                     </li>
+             
                     <li>
-                <input style="font-size:25px;" type="submit" class="btn" name="commit" value="Войти" title="Войти" />
+                         <input style="font-size:25px;" type="submit" class="btn" name="commit" value="Войти" title="Войти" />
                     </li>
                     <li>
                         <label class="bag">
@@ -38,4 +37,5 @@
                     </li>
                 </ul>
             </form>
+    
 </div>
