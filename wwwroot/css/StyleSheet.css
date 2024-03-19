@@ -38,7 +38,7 @@
         white-space: normal;
         text-align: center;
         text-anchor: start;
-        word-break: break-all;
+        word-break: break-word;
     }
 
     table th {
@@ -311,6 +311,7 @@
         color: #0f4591;
         padding: 5px 15px;
         border: 3px solid #0f4591;
+        border-radius:10px;
     }
 
         .assign-self-a:hover {
@@ -635,18 +636,35 @@
         }
 }
 
-
-
-#row-table-td {
-    background-color: whitesmoke;
-    white-space: pre-wrap;
+table, th, td {
+    border: 1px solid black;
+    border-collapse: separate;
+    empty-cells: hide;
 }
+
+th, td {
+    max-width: 400px;
+    border: 2px solid #69c;
+}
+
+    td[name=desc-cell]{
+        white-space:pre-wrap;
+        word-break:break-word;
+    }
+
+    #row-table-td {
+        background-color: whitesmoke;
+        white-space: pre-wrap;
+    }
 
 .assign-self-a {
     text-decoration: none;
     color: #0f4591;
     padding: 5px 15px;
+    border-radius: 10px;
     border: 3px solid #0f4591;
+    display: flex;
+    justify-content: center;
 }
 
     .assign-self-a:hover {
@@ -816,16 +834,24 @@ input {
     }
 
     input[type=password]::placeholder {
-        font-size: 20px;
         color: whitesmoke;
     }
 
-ul {
-    list-style: none;
-    display: list-item;
-    text-align: center;
-    width: 100%;
-}
+    input:-webkit-autofill,
+    input:-webkit-autofill::first-line,
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        font-size: 20px;
+    }
+
+    ul {
+        list-style: none;
+        display: list-item;
+        text-align: center;
+        width: 100%;
+    }
 
 li {
     padding: 1% 1%;
@@ -841,11 +867,19 @@ input:hover {
 }
 
 h2 {
+    margin-top:10px;
     text-align: center;
-    margin-block: 0;
-    color: darkblue;
+    margin-right:7%;
+display:block;
+color: darkblue;
 }
-
+#btn-status {
+    font-size: 16px;
+    margin: 0;
+    word-break: break-word;
+    border-radius: 10px;
+    padding: 7px 20px;
+}
 .btn {
     margin-top: 15px;
     margin-bottom: 5px;
@@ -877,13 +911,15 @@ select {
     color: whitesmoke;
     display: flex;
     width: 100%;
+    min-width:200px;
+    word-break:break-word;
     max-width: 430px;
     box-sizing: border-box;
     background-color: #0f4591;
     color: whitesmoke;
     padding: 5px 10px;
     width: 100%;
-    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.09);
     -webkit-appearance: button;
     appearance: button;
     outline: none;

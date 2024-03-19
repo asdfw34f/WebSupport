@@ -124,10 +124,13 @@ namespace WebSupport.Controllers.Home
         {
             var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id || i.AssignedToId == Account.Account.currentUser.Id).ToListAsync();
             issues.OrderByDescending(i => i.Id);
-            List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
+
+            MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);
+
+            myIssuesViewModel.issues = new List<IssueViewModel>();
+            
             if (issues.Count > 0)
             {
-
                 foreach (var issue in issues)
                 {
                     var projectName = await context.Projects.FirstOrDefaultAsync(p => p.Id == issue.ProjectId);
@@ -135,7 +138,7 @@ namespace WebSupport.Controllers.Home
                     var author = await context.Users.FindAsync(issue.AuthorId);
                     var status = await context.IssueStatuses.FindAsync(issue.StatusId);
 
-                    issuesViewModel.Add(
+                    myIssuesViewModel.issues.Add(
                         new IssueViewModel(
                             issue,
                             projectName.Name,
@@ -143,11 +146,12 @@ namespace WebSupport.Controllers.Home
                             author.Firstname + ' ' + author.Lastname,
                             status.Name
                             ));
-
                 }
 
             }
-            return View(issuesViewModel);
+            myIssuesViewModel.Statuses = await context.IssueStatuses.ToListAsync();
+
+            return View(myIssuesViewModel);
         }
 
         #endregion

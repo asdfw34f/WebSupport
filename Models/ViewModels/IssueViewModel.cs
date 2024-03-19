@@ -1,4 +1,5 @@
-﻿using WebSupport.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using WebSupport.Entities;
 
 namespace WebSupport.Models.ViewModels
 {
@@ -12,6 +13,9 @@ namespace WebSupport.Models.ViewModels
         public string AuthorName { get; set; }
 
         public string status { get; set; }
+
+      
+
         public IssueViewModel(Issue issue, string projectName, string trackerName, string authorName, string status = "")
         {
             this.issue = issue;
@@ -21,5 +25,7 @@ namespace WebSupport.Models.ViewModels
             this.status = status;
 
         }
+
+
     }
 }

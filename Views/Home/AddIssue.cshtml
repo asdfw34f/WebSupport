@@ -17,8 +17,10 @@
     ViewData.Add("tracker", tracker);
 
 }
-<div>
-    <h2 style="margin-bottom:80px;">Добавление задачи</h2>
+<div class="table-scroll">
+    <h2 style="margin-top:15px;margin-bottom:5px;">Добавление задачи</h2>
+    <hr align="right" width="100%" size="10" color="#0f4591" style="margin-top:0;" />
+    <br />
     <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>
             <li>
