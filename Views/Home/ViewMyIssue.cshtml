@@ -1,6 +1,4 @@
-﻿@using WebSupport.Entities
-@using WebSupport.Models.ViewModels
-
+﻿@using WebSupport.Models.ViewModels
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -8,11 +6,10 @@
     Layout = "~/Views/_LayoutMain.cshtml";
 }
 
-@model IList<IssueViewModel>
-
+@model IList<IssueViewModel?>
 
 <div class="table-scroll">
-    <h2 style="margin-top:15px;">Новые задачи</h2>
+    <h2 style="margin-top:15px;">Мои задачи</h2>
     <table name="table" class="table">
         <tread class="table-row-tread">
             <tr class="columns-table">
@@ -21,32 +18,34 @@
                 <th>Тема</th>
                 <th>Описание</th>
                 <th>Создано</th>
-                <th>Автор</th>
+                <th>Комментарии</th>
                 <th></th>
             </tr>
         </tread>
-        <tbody id="me-rows">
-   
+        <tbody>
             @if (Model.Count() > 0)
             {
                 foreach (var issue in Model)
                 {
                     <tr>
-                        <td  class="cell-multi">@issue.ProjectName</td>
+                        <td class="cell-multi">@issue.ProjectName</td>
                         <td id="row-table-td">@issue.TrackerName</td>
                         <td id="row-table-td">@issue.issue.Subject</td>
                         <td id="row-table-td" class="cell-multi">@issue.issue.Description</td>
-                        @if (issue.issue.CreatedOn != null)
-                        {
-                            string time = ((DateTime)issue.issue.CreatedOn).ToString("f");
-                            <td id="row-table-td">@time</td>
+                        @{
+                            if (issue.issue.CreatedOn != null)
+                            {
+                                string time = ((DateTime)issue.issue.CreatedOn).ToString("f");
+                                <td id="row-table-td">@time</td>
+                            }
+                            else
+                            {
+                                <td id="row-table-td">
+                                </td>
+                            }
                         }
-                        else
-                        {
-                            <td id="row-table-td"></td>
-                        }
-                        <td name="time" id="row-table-td">@issue.AuthorName</td>
-                        <td><a class="assign-self-a"  href="issues/submit/@issue.issue.Id">Назначить себя</a></td>
+                        <td id="row-table-td">@issue.status</td>
+                        <td><a class="assign-self-a" href="issues/submit/@issue.issue.Id">Изменить статус</a></td>
                     </tr>
                 }
             }

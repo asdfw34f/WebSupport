@@ -11,12 +11,15 @@ namespace WebSupport.Models.ViewModels
 
         public string AuthorName { get; set; }
 
-        public IssueViewModel(Issue issue, string projectName, string trackerName, string authorName)
+        public string status { get; set; }
+        public IssueViewModel(Issue issue, string projectName, string trackerName, string authorName, string status = "")
         {
             this.issue = issue;
             ProjectName = projectName;
             TrackerName = trackerName;
             AuthorName = authorName;
+            this.status = status;
+
         }
     }
 }

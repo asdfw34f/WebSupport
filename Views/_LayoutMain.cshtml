@@ -34,8 +34,9 @@
                 {
                     if (Account.currentUser.Admin)
                     {
-                        <li><a href="manage%0%panel">Управлять</a></li>
+                        <li><a asp-action="Manage" asp-controller="Home" >Управлять</a></li>
                     }
+                    <li> <a asp-action="ViewMyIssue" asp-controller="Home">Мои задачи</a></li>
                 }
                 
                 <li><a asp-controller="Wiki" asp-action="GetAllWikiPages">Wiki</a></li>

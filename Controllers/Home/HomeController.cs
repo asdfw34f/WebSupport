@@ -86,7 +86,6 @@ namespace WebSupport.Controllers.Home
                 var projectName = await context.Projects.FirstOrDefaultAsync(p=>p.Id==issue.ProjectId);
                 var trackerName = await context.Trackers.FirstOrDefaultAsync(t=>t.Id==issue.TrackerId);
                 var author = await context.Users.FindAsync(issue.AuthorId);
-
                 issuesViewModel.Add(
                     new IssueViewModel(
                         issue,
@@ -115,6 +114,43 @@ namespace WebSupport.Controllers.Home
 
             return Redirect("/manage%0%panel");
         }
+
+        #region My issues
+
+        [HttpGet]
+        [Authorize]
+        [Route("manage/issue/myself")]
+        public async Task<IActionResult> ViewMyIssue()
+        {
+            var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id || i.AssignedToId == Account.Account.currentUser.Id).ToListAsync();
+            issues.OrderByDescending(i => i.Id);
+            List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
+            if (issues.Count > 0)
+            {
+
+                foreach (var issue in issues)
+                {
+                    var projectName = await context.Projects.FirstOrDefaultAsync(p => p.Id == issue.ProjectId);
+                    var trackerName = await context.Trackers.FirstOrDefaultAsync(t => t.Id == issue.TrackerId);
+                    var author = await context.Users.FindAsync(issue.AuthorId);
+                    var status = await context.IssueStatuses.FindAsync(issue.StatusId);
+
+                    issuesViewModel.Add(
+                        new IssueViewModel(
+                            issue,
+                            projectName.Name,
+                            trackerName.Name,
+                            author.Firstname + ' ' + author.Lastname,
+                            status.Name
+                            ));
+
+                }
+
+            }
+            return View(issuesViewModel);
+        }
+
+        #endregion
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
