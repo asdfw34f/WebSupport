@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Authentication;
 using WebSupport.Account;
 using Microsoft.EntityFrameworkCore;
 using WebSupport.Repositories.Users;
-using WebSupport.Entities;
+using WebSupport.DataEntities;
+using WebSupport.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

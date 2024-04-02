@@ -4,8 +4,9 @@ using System.Security.Claims;
 using System.Text;
 using System.Security.Cryptography;
 using WebSupport.Repositories.Users;
-using WebSupport.Entities;
+using WebSupport.DataEntities;
 using Microsoft.EntityFrameworkCore;
+using WebSupport.Data;
 
 namespace WebSupport.Account
 {
@@ -21,7 +22,6 @@ namespace WebSupport.Account
 
         async Task<bool> IAuthentication.Log_In(string username, string password, HttpContext context)
         {
-
             var temp = await redmineContext.Users.SingleAsync(u => u.Login == username);
 
             if (temp == null)
@@ -31,23 +31,31 @@ namespace WebSupport.Account
 
             var hashed = CalculateHash(temp.Salt, password);
             
-            var user = await redmineContext.Users.Where(u=>u.Login == username && u.HashedPassword == hashed).FirstAsync();
+            var matches = await redmineContext.Users.Where(u=>u.Login == username && u.HashedPassword == hashed).ToListAsync();
             
-            if (user != null)
+            if (matches.Count < 1) 
             {
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-                await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-
-                context.Response.Cookies.Append("username", username);
-                context.Response.Cookies.Append("password", password);
-                Account.currentUser = user;
-                Account.isAuthorized = true;
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                var user = matches.First();
+                if (user != null)
+                {
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+                    await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                    context.Response.Cookies.Append("username", username);
+                    context.Response.Cookies.Append("password", password);
+                    Account.currentUser = user;
+                    Account.isAuthorized = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

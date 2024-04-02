@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Xml;
 using WebSupport.Account;
-using WebSupport.Entities;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using WebSupport.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using WebSupport.Data;
 
 namespace WebSupport.Controllers.Home
 {
@@ -54,7 +54,7 @@ namespace WebSupport.Controllers.Home
              //   Repository.CreateIssue(project, tracker, subject, description);
 
                 context.Issues.Add(
-                    new Entities.Issue()
+                    new DataEntities.Issue()
                     {
                         ProjectId = Convert.ToInt32(project),
                         TrackerId = Convert.ToInt32(tracker),

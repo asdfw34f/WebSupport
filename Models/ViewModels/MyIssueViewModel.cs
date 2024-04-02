@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebSupport.Entities;
+﻿using WebSupport.Data;
+using WebSupport.DataEntities;
 
 namespace WebSupport.Models.ViewModels
 {

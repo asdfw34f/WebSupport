@@ -1,4 +1,4 @@
-﻿using WebSupport.Entities;
+﻿using WebSupport.DataEntities;
 
 namespace WebSupport.Repositories.Users
 {

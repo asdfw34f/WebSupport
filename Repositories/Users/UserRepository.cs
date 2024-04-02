@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebSupport.Entities;
-using User = WebSupport.Entities.User;
+using WebSupport.Data;
+using WebSupport.DataEntities;
 
 namespace WebSupport.Repositories.Users
 {

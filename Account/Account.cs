@@ -1,4 +1,5 @@
-﻿using WebSupport.Entities;
+﻿
+using WebSupport.DataEntities;
 
 namespace WebSupport.Account
 {
