@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace WebSupport.DataEntities;
+﻿namespace WebSupport.DataEntities;
 
 public partial class RolesManagedRole
 {

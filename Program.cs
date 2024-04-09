@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using WebSupport.Account;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
-using WebSupport.Repositories.Users;
-using WebSupport.DataEntities;
+using WebSupport.Account;
 using WebSupport.Data;
+using WebSupport.Repositories.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +15,7 @@ var con = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<RedmineContext>(
     options => options.UseMySQL(
-        con 
+        con
         ));
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();

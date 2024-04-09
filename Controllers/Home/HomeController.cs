@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using WebSupport.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using System.Xml;
-using WebSupport.Account;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using WebSupport.Models.ViewModels;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using WebSupport.Data;
+using WebSupport.Models;
+using WebSupport.Models.ViewModels;
 
 namespace WebSupport.Controllers.Home
 {
@@ -24,7 +19,7 @@ namespace WebSupport.Controllers.Home
             this.context = context;
 
         }
-        
+
         #region create issue
         // GET: HomeController
         [Route("/")]
@@ -44,22 +39,22 @@ namespace WebSupport.Controllers.Home
         [Authorize]
         public async Task<ActionResult> AddIssueAsync(string project, string tracker, string subject, string description)
         {
-            if (string.IsNullOrEmpty(project)|| string.IsNullOrEmpty(tracker)) 
+            if (string.IsNullOrEmpty(project) || string.IsNullOrEmpty(tracker))
             {
                 ViewBag.CreateResult = "Заполните все поля";
                 return View("AddIssue");
             }
             else
             {
-             //   Repository.CreateIssue(project, tracker, subject, description);
+                //   Repository.CreateIssue(project, tracker, subject, description);
 
                 context.Issues.Add(
                     new DataEntities.Issue()
                     {
                         ProjectId = Convert.ToInt32(project),
                         TrackerId = Convert.ToInt32(tracker),
-                        Subject= subject,
-                        Description= description,
+                        Subject = subject,
+                        Description = description,
                         AuthorId = Account.Account.currentUser.Id,
                         StatusId = 1
                     });
@@ -154,13 +149,13 @@ namespace WebSupport.Controllers.Home
         [Route("account/issue/myself")]
         public async Task<IActionResult> ViewMyIssue()
         {
-            var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id ).OrderByDescending(i=>i.Id).Take(100).ToListAsync();
-            
+            var issues = await context.Issues.Where(i => i.AuthorId == Account.Account.currentUser.Id).OrderByDescending(i => i.Id).Take(100).ToListAsync();
+
 
             MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);
 
             myIssuesViewModel.issues = new List<IssueViewModel>();
-            
+
             if (issues.Count > 0)
             {
                 issues.OrderByDescending(i => i.Id);
@@ -187,7 +182,7 @@ namespace WebSupport.Controllers.Home
                     {
                         trackName = "Трекер был удалён";
                     }
-                    
+
                     var author = await context.Users.FindAsync(issue.AuthorId);
                     var status = await context.IssueStatuses.FindAsync(issue.StatusId);
 

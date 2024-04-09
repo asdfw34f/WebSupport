@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebSupport.Models;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using WebSupport.Account;
+using WebSupport.Models;
 
 namespace WebSupport.Controllers.Authentication
 {

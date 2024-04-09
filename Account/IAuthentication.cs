@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-
-namespace WebSupport.Account
+﻿namespace WebSupport.Account
 {
     public interface IAuthentication
     {

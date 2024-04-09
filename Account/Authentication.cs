@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
-using System.Text;
-using System.Security.Cryptography;
-using WebSupport.Repositories.Users;
-using WebSupport.DataEntities;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Text;
 using WebSupport.Data;
+using WebSupport.Repositories.Users;
 
 namespace WebSupport.Account
 {
@@ -30,10 +29,10 @@ namespace WebSupport.Account
             }
 
             var hashed = CalculateHash(temp.Salt, password);
-            
-            var matches = await redmineContext.Users.Where(u=>u.Login == username && u.HashedPassword == hashed).ToListAsync();
-            
-            if (matches.Count < 1) 
+
+            var matches = await redmineContext.Users.Where(u => u.Login == username && u.HashedPassword == hashed).ToListAsync();
+
+            if (matches.Count < 1)
             {
                 return false;
             }

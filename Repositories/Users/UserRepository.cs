@@ -44,7 +44,7 @@ namespace WebSupport.Repositories.Users
         {
             if (_context != null)
             {
-                var user  = await _context.Users.Where(u => u.Id==userId).SingleAsync();
+                var user = await _context.Users.Where(u => u.Id == userId).SingleAsync();
                 return user.Admin;
             }
             else
