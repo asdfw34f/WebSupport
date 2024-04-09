@@ -56,7 +56,9 @@ namespace WebSupport.Controllers.Home
                         Subject = subject,
                         Description = description,
                         AuthorId = Account.Account.currentUser.Id,
-                        StatusId = 1
+                        StatusId = 1,
+                        CreatedOn = DateTime.Now
+                        
                     });
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
