@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using WebSupport.Account;
 using WebSupport.Models;
+using WebSupport.NotifyMail;
 
 namespace WebSupport.Controllers.Authentication
 {
@@ -28,7 +29,7 @@ namespace WebSupport.Controllers.Authentication
             var res = await _authenticater.Log_In(username, password, HttpContext);
             if (res)
             {
-
+                new MessageSender().Send();
                 ViewBag.username = string.Format("Successfull logged-in", username);
                 return Redirect("/");
             }

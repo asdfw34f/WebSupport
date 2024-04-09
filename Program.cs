@@ -37,6 +37,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
+
+
 // обработка ошибок HTTP
 app.UseStatusCodePages(async statusCodeContext =>
 {
