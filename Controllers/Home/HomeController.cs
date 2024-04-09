@@ -47,6 +47,7 @@ namespace WebSupport.Controllers.Home
             else
             {
                 //   Repository.CreateIssue(project, tracker, subject, description);
+                var created = DateTime.Now;
 
                 context.Issues.Add(
                     new DataEntities.Issue()
@@ -57,11 +58,21 @@ namespace WebSupport.Controllers.Home
                         Description = description,
                         AuthorId = Account.Account.currentUser.Id,
                         StatusId = 1,
-                        CreatedOn = DateTime.Now
+                        CreatedOn = created
                         
                     });
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
+
+                var subjectMess = $"Новая задача: {subject}";
+                var message = $"Текст задачи: {description}" +
+                    $"\nОт: {Account.Account.currentUser.Firstname + ' ' + Account.Account.currentUser.Lastname}" +
+                    $"\nВремя создания: {created.ToString()}";
+
+
+                var admins = await context.Users.Where(u=> u.Admin == true).ToListAsync();
+
+
                 return View("AddIssue", context);
             }
 

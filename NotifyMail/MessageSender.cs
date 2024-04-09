@@ -6,7 +6,6 @@ namespace WebSupport.NotifyMail
 {
     public class MessageSender
     {
-
         public void Send(string reciever = "poo1i@yandex.ru", string subject ="Попытка 2", string message= "я узкий")
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -17,7 +16,6 @@ namespace WebSupport.NotifyMail
             string passwrodSender = configuration["PasswordMail"].ToString();
             string usernameSender = configuration["SenderMail"].ToString();
 
-
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -26,6 +24,8 @@ namespace WebSupport.NotifyMail
             };
             smtpClient.Send(usernameSender, reciever, subject, message);
         }
+
+
 
     }
 }
