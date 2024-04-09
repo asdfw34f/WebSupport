@@ -79,20 +79,52 @@ namespace WebSupport.Controllers.Home
         public async Task<IActionResult> Manage()
         {
             var issues = await context.Issues.Where(i => i.StatusId == 1).ToListAsync();
-            issues.OrderByDescending(i => i.Id);
             List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
-            foreach(var issue in issues)
+            if (issues.Count > 0)
             {
-                var projectName = await context.Projects.FirstOrDefaultAsync(p=>p.Id==issue.ProjectId);
-                var trackerName = await context.Trackers.FirstOrDefaultAsync(t=>t.Id==issue.TrackerId);
-                var author = await context.Users.FindAsync(issue.AuthorId);
-                issuesViewModel.Add(
-                    new IssueViewModel(
-                        issue,
-                        projectName.Name,
-                        trackerName.Name,
-                        author.Firstname +' '+ author.Lastname
-                        ));
+                issues.OrderByDescending(i => i.Id);
+                foreach (var issue in issues)
+                {
+                    var projectName = await context.Projects.FindAsync(issue.ProjectId);
+                    string projName = "";
+                    if (projectName != null)
+                    {
+                        projName = projectName.Name;
+                    }
+                    else
+                    {
+                        projName = "Проект был удалён";
+                    }
+
+                    var trackerName = await context.Trackers.FirstOrDefaultAsync(t => t.Id == issue.TrackerId);
+                    string trackName = "";
+                    if (trackerName != null)
+                    {
+                        trackName = trackerName.Name;
+                    }
+                    else
+                    {
+                        trackName = "Трекер был удалён";
+                    }
+
+                    var author = await context.Users.FindAsync(issue.AuthorId);
+                    string authorName = "";
+                    if (author != null)
+                    {
+                        authorName = author.Firstname + ' ' + author.Lastname;
+                    }
+                    else
+                    {
+                        authorName = "Автор был удалён";
+                    }
+                    issuesViewModel.Add(
+                                            new IssueViewModel(
+                                                issue,
+                                                projectName.Name,
+                                                trackerName.Name,
+                                                "Автор был удалён"
+                                                ));
+                }
             }
             return View(issuesViewModel);
         }
@@ -122,8 +154,8 @@ namespace WebSupport.Controllers.Home
         [Route("account/issue/myself")]
         public async Task<IActionResult> ViewMyIssue()
         {
-            var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id || i.AssignedToId == Account.Account.currentUser.Id).ToListAsync();
-            issues.OrderByDescending(i => i.Id);
+            var issues = await context.Issues.Where(i=> i.AuthorId == Account.Account.currentUser.Id ).OrderByDescending(i=>i.Id).Take(100).ToListAsync();
+            
 
             MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);
 
@@ -131,10 +163,31 @@ namespace WebSupport.Controllers.Home
             
             if (issues.Count > 0)
             {
+                issues.OrderByDescending(i => i.Id);
                 foreach (var issue in issues)
                 {
                     var projectName = await context.Projects.FirstOrDefaultAsync(p => p.Id == issue.ProjectId);
+                    string projName = "";
+                    if (projectName != null)
+                    {
+                        projName = projectName.Name;
+                    }
+                    else
+                    {
+                        projName = "Проект был удалён";
+                    }
+
                     var trackerName = await context.Trackers.FirstOrDefaultAsync(t => t.Id == issue.TrackerId);
+                    string trackName = "";
+                    if (trackerName != null)
+                    {
+                        trackName = trackerName.Name;
+                    }
+                    else
+                    {
+                        trackName = "Трекер был удалён";
+                    }
+                    
                     var author = await context.Users.FindAsync(issue.AuthorId);
                     var status = await context.IssueStatuses.FindAsync(issue.StatusId);
 
