@@ -37,9 +37,9 @@ namespace WebSupport.Controllers.Home
         [HttpPost]
         [Route("/")]
         [Authorize]
-        public async Task<ActionResult> AddIssueAsync(string project, string tracker, string subject, string description)
+        public async Task<ActionResult> AddIssueAsync(/*string project, */string tracker, string subject, string description)
         {
-            if (string.IsNullOrEmpty(project) || string.IsNullOrEmpty(tracker))
+            if (/*string.IsNullOrEmpty(project) ||*/ string.IsNullOrEmpty(tracker))
             {
                 ViewBag.CreateResult = "Заполните все поля";
                 return View("AddIssue");
@@ -49,18 +49,23 @@ namespace WebSupport.Controllers.Home
                 //   Repository.CreateIssue(project, tracker, subject, description);
                 var created = DateTime.Now;
 
+                var idTrack = Convert.ToInt32(tracker);
+                var proj =await  context.ProjectsTrackers.Where(t => t.TrackerId == idTrack).FirstAsync();
+
+
                 context.Issues.Add(
                     new DataEntities.Issue()
                     {
-                        ProjectId = Convert.ToInt32(project),
-                        TrackerId = Convert.ToInt32(tracker),
+                        /*ProjectId = Convert.ToInt32(project),*/
+                        ProjectId = proj.ProjectId,
+                        TrackerId = idTrack,
                         Subject = subject,
                         Description = description,
                         AuthorId = Account.Account.currentUser.Id,
                         StatusId = 1,
                         CreatedOn = created
-                        
-                    });
+
+                    }) ;
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
 

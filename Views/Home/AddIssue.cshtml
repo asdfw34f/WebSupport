@@ -2,6 +2,7 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @using Newtonsoft.Json
+@using WebSupport.Account
 @using WebSupport.Data
 @using WebSupport.DataEntities
 
@@ -9,29 +10,61 @@
 @{
     ViewData["Title"] = "Главная";
     Layout = "~/Views/_LayoutMain.cshtml";
-    
-    RedmineContext appContext = ViewBag.AppContext;
 
-    IEnumerable<SelectListItem> project = new SelectList(Model.Projects.ToList(), "Id", "Name");
-    IEnumerable<SelectListItem> tracker = new SelectList(Model.Trackers.ToList(), "Id", "Name");
+    try
+    {
 
-    ViewData.Add("project", project);
-    ViewData.Add("tracker", tracker);
+        // IEnumerable<SelectListItem> project = new SelectList(Model.Projects.ToList(), "Id", "Name");
 
+        IEnumerable<SelectListItem> tracker = new SelectList(Model.Trackers.ToList(), "Id", "Name");
+
+        //  ViewData.Add("project", project);
+        ViewData.Add("tracker", tracker);
+    }
+    catch
+    {
+    }
 }
+
+
 <div class="table-scroll">
-    <h2 style="margin-top:15px;margin-bottom:5px;">Добавление задачи</h2>
-    <hr align="right" width="100%" size="10" color="#0f4591" style="margin-top:0;" />
-    <br />
+    @{
+        string name = Account.currentUser.Lastname + ' ' + Account.currentUser.Firstname[0].ToString() +'.';
+        string admin = "";
+        if (Account.currentUser.Admin)
+        {
+            admin = "Администратор";
+        }
+        else
+        {
+            admin = "Сотрудник";
+        }
+    }
+    <div id="div_top_hypers">
+        <ul style="margin-top:15px; text-align:end; font-size:18px;" id="ul_top_hypers">
+            <li id="user-label" >@admin: @name</li>
+            <li>
+                <h2 id="main-header" >Добавление задачи</h2>
+                <hr align="right" width="100%" size="3" color="#1e5484" style="width:99%; margin-top:0;" />
+                <br />
+            </li>
+        </ul>
+        
+    </div>
+
+    
+ 
     <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>
+          @*
             <li>
-                <label for="">Проект к которому относится предстоящая задача</label>
-                @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
+            <label for="">Проект к которому относится предстоящая задача</label>
+            @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
             </li>
+            *@  
             <li>
                 <label for="">Трек для назначения исполнителя</label>
-                @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, "Выберите трек")
+                @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, new { @class = "form-control", required = "required" })
             </li>
             <li>
                 <label for="">Кратко с чем связано</label>
@@ -50,9 +83,21 @@
                 </label>
             </li>
             <li>
-                <input class="btn" type="submit" value="Подать заявку" action="AddIssue" />
+                <input id="subAdd" class="btn" type="submit" value="Подать заявку" action="AddIssue" />
             </li>
-   
         </ul>
     </form>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tracker").on("change", function () {
+                var a = $("#tracker option:selected").text();
+                if (a == null || a == "") {
+                    $('#subAdd').attr('disabled', 'disabled');
+                } else {
+                    $('#subAdd').removeAttr('disabled');
+                }
+            }
+
+        });
+    </script>
 </div>

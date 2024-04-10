@@ -1,6 +1,6 @@
 ﻿﻿:root {
     --color-orange: #d65f00;
-    --color-blue: #0f4591;
+    --color-blue: #1e5484;
 }
 /* Modern Browsers */
 textarea::placeholder {
@@ -45,10 +45,21 @@ textarea::-ms-input-placeholder {
 }
 /* Simple phones*/
 @media screen and (max-width: 520px) {
-
     h2 {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
         margin-left: 55px;
+    }
+
+    #user-label {
+        text-align: start;
+        border: 1px solid #1e5484;
+        padding: 5px 15px;
+        color: #1e5484;
+    }
+
+    #main-header {
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
 
     table {
@@ -64,10 +75,9 @@ textarea::-ms-input-placeholder {
         table tr {
             max-width: 330px;
             border-radius: 6px;
-            margin-bottom: 80px;
+            margin-bottom: 20px;
             display: block;
-            border-bottom: 4px solid #ddd;
-            background-color: darkslateblue;
+            background-color: none;
         }
 
     #row-table-td {
@@ -76,6 +86,8 @@ textarea::-ms-input-placeholder {
         text-align: center;
         text-anchor: start;
         word-break: break-word;
+        color: black;
+        font-weight: normal;
     }
 
     table th {
@@ -89,8 +101,6 @@ textarea::-ms-input-placeholder {
     table td {
         display: block;
         text-align: center;
-        border-bottom: 1px dotted #ccc;
-        border-right: 1px solid transparent;
         background-color: whitesmoke;
         white-space: pre-wrap;
         font-size: 16px;
@@ -98,16 +108,14 @@ textarea::-ms-input-placeholder {
 
         table td:last-child {
             background-color: #E1E2E2;
-            border-bottom: 0;
             color: whitesmoke;
             font-weight: 550;
         }
 
 
         table td:first-child {
-            background-color: #E1E2E2;
-            border-bottom: 0;
-            color: #0f4591;
+            background-color: white;
+            color: black;
             font-weight: 550;
         }
 
@@ -143,6 +151,16 @@ textarea::-ms-input-placeholder {
         font-size: 20px;
     }
 
+    textarea {
+        width: 300px;
+        height: 200px;
+        padding: 10px;
+        outline: 0;
+        border: 1px solid #1e5484;
+        background-color: whitesmoke;
+        resize: none;
+        line-height: 24px;
+    }
     .main {
         width: 100vw;
         display: block;
@@ -178,8 +196,9 @@ textarea::-ms-input-placeholder {
     .table-scroll {
         margin-left: 0;
         max-width: 430px;
+        width:100vw;
         overflow-x: hidden;
-        background-color: whitesmoke;
+        background-color: white;
     }
 
 
@@ -196,7 +215,7 @@ textarea::-ms-input-placeholder {
         margin-left: -220px;
         overflow-y: auto;
         overflow-x: auto;
-        background-color: #0f4591;
+        background-color: #1e5484;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
@@ -363,15 +382,29 @@ textarea::-ms-input-placeholder {
         }
 }
 
-@media screen and (max-width: 900px) {
-
-    h2 {
-        margin-bottom: 30px;
+@media screen and (max-width: 900px) and (min-width:521px){
+    #user-label {
+        text-align: start;
+        border: 1px solid #1e5484;
+        padding: 5px 15px;
+        color: #1e5484;
+    }
+    .table-scroll {
+        width:100vw;
+        margin-left: 0;
+        max-width: 900px;
+        overflow-x: auto;
+        background-color: white;
+    }
+    #main-header {
+        margin-top: 0px;
+        margin-bottom: 0px;
     }
 
     table {
         width: 100vw;
         border: 0;
+        text-align:center;
     }
 
         table thead {
@@ -381,9 +414,8 @@ textarea::-ms-input-placeholder {
         table tr {
             max-width: 330px;
             border-radius: 6px;
-            margin-bottom: 80px;
-            display: block;
-            border-bottom: 4px solid #ddd;
+            margin-bottom: 20px;
+            display: inline-block;
             background-color: darkslateblue;
         }
 
@@ -405,7 +437,6 @@ textarea::-ms-input-placeholder {
         display: block;
         text-align: center;
         border-bottom: 1px dotted #ccc;
-        border-right: 1px solid transparent;
         background-color: whitesmoke;
         white-space: pre-wrap;
         font-size: 16px;
@@ -413,7 +444,6 @@ textarea::-ms-input-placeholder {
 
         table td:last-child {
             background-color: #E1E2E2;
-            border-bottom: 0;
             color: whitesmoke;
             font-weight: 550;
         }
@@ -421,7 +451,6 @@ textarea::-ms-input-placeholder {
 
         table td:first-child {
             background-color: #E1E2E2;
-            border-bottom: 0;
             color: #0f4591;
             font-weight: 550;
         }
@@ -457,7 +486,16 @@ textarea::-ms-input-placeholder {
         font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
         font-size: 20px;
     }
-
+    textarea {
+        width: 500px;
+        height: 200px;
+        padding: 10px;
+        outline: 0;
+        border: 1px solid #1e5484;
+        background-color: whitesmoke;
+        resize: none;
+        line-height: 24px;
+    }
     .main {
         width: 100vw;
         display: block;
@@ -490,15 +528,6 @@ textarea::-ms-input-placeholder {
         #wrapper.toggled {
             padding-left: 1px;
         }
-
-    .table-scroll {
-        margin-left: 0;
-        max-width: 430px;
-        overflow-x: auto;
-        background-color: whitesmoke;
-    }
-
-
 
     /*
     font-size: 10px;
@@ -679,7 +708,10 @@ textarea::-ms-input-placeholder {
 
 
 @media screen and (min-width: 901px) {
-
+    #main-header {
+        margin-top: -40px;
+        margin-bottom: 0px;
+    }
     .table {
         background-color: whitesmoke;
     }
@@ -701,7 +733,7 @@ textarea::-ms-input-placeholder {
     }
 
     .assign-self-a {
-        font-weight:600;
+        font-weight: 600;
         background-color: whitesmoke;
     }
 
@@ -719,6 +751,14 @@ textarea::-ms-input-placeholder {
     }
 }
 
+#div_top_hypers {
+    background-color: #eeeeee;
+    display: inline;
+}
+
+#ul_top_hypers li {
+    display: inline;
+}
 
 table, th, td {
     border: 1px solid black;
@@ -761,7 +801,7 @@ th, td {
 
 
 .table-scroll {
-    height: 100vh;
+    height: 99vh;
     overflow-y: auto;
     overflow-x: auto;
     width: 100vw;
@@ -798,7 +838,6 @@ table {
         white-space: nowrap;
         padding: 10px;
         text-align: center;
-        border-right: 1px solid #ddd;
         word-break: break-all;
     }
 
@@ -824,7 +863,7 @@ html {
     background: whitesmoke;
     width: 100%;
     height: 100%;
-    font-family:  "Gill Sans", sans-serif;
+    font-family: "Gill Sans", sans-serif;
     font-size: 22px;
 }
 
@@ -864,20 +903,19 @@ div {
 }
 
 textarea {
-    width: 80%;
     height: 200px;
     padding: 10px;
     outline: 0;
-    border: 3px solid #0f4591;
+    border: 1px solid #1e5484;
     background-color: whitesmoke;
     resize: none;
-    line-height: 20px;
+    line-height: 24px;
 }
 
 input {
     max-width: 100%;
     font-size: 20px;
-    background-color: #0f4591;
+    background-color: #1e5484;
     font-style: revert-layer;
     border: 0;
     border-radius: 7px;
@@ -889,7 +927,8 @@ input {
 }
 
     input[type=text]::placeholder {
-        color: whitesmoke;
+        background: #1e5484;
+        color: white;
     }
 
     input[name=description] {
@@ -898,7 +937,7 @@ input {
         max-width: 100%;
         background-color: whitesmoke;
         color: #1e1e2d;
-        border-color: #0f4591;
+        border-color: #1e5484;
         border-radius: 15px;
         height: 5rem;
         box-shadow: -1px 5px 10px rgba(0, 0, 0, 0.5);
@@ -910,7 +949,7 @@ input {
         }
 
         input[name=description]:hover {
-            background-color: whitesmoke;
+            background-color: white;
             color: #1e1e2d;
             font-size: 20px;
             text-shadow: none;
@@ -919,19 +958,19 @@ input {
     input[type=text]::selection {
         background: #d65f00;
         font-size: 20px;
-        color: whitesmoke;
+        color: white;
         text-shadow: none;
     }
 
     input[type=text]::-moz-selection {
         background: #d65f00;
-        color: whitesmoke;
+        color: white;
         font-size: 20px;
         text-shadow: none;
     }
 
     input[type=password]::placeholder {
-        color: whitesmoke;
+        color: white;
     }
 
     input:-webkit-autofill,
@@ -942,6 +981,15 @@ input {
     input:-webkit-autofill:active {
         font-size: 20px;
     }
+
+#user-label {
+    text-align: start;
+    border: 1px solid #1e5484;
+    padding: 5px 15px;
+    color: #1e5484;
+}
+
+
 
 ul {
     list-style: none;
@@ -959,7 +1007,7 @@ li {
 }
 
 input:hover {
-    background: #0f4591;
+    background: #1e5484;
     border: 0;
 }
 
@@ -986,7 +1034,7 @@ h2 {
     appearance: button;
     border: 0;
     border-radius: 20px;
-    background-color: #0f4591;
+    background-color: #1e5484;
     color: whitesmoke;
     font-weight: 400;
     padding: 6px 18px;
@@ -1027,25 +1075,9 @@ select {
     margin-right: auto;
 }
 
-    select::before {
-        text-align: center;
-        line-height: 45px;
-        color: whitesmoke;
-        background-color: rgba(255, 255, 255, 0.1);
-        pointer-events: none;
-    }
-
-    select:hover {
-        background-color: #0f4591;
-    }
-
-    select option {
-        background-color: whitesmoke;
-        color: #0f4591;
-    }
 
 .main {
-    width: 100vw;
+    width: 99vw;
     display: inline-flex;
     margin-bottom: 60px;
     height: 100vh;
@@ -1075,20 +1107,20 @@ footer {
     bottom: 0;
     width: 100%;
     height: 70px; /* Height of the footer */
-    background-color: #0f4591;
+    background-color: #1e5484;
     clear: both;
     color: whitesmoke;
-    opacity:0.7;
+    opacity: 0.7;
 }
 
     footer div {
-        background-color: #0f4591;
+        background-color: #1e5484;
     }
 
 .footer-link {
     font-size: 16px;
     color: whitesmoke;
-    background-color: #0f4591;
+    background-color: #1e5484;
 }
 
 
@@ -1227,9 +1259,9 @@ footer {
 
 .sidebar-brand {
     border-radius: 2px;
-    height: 65px;
+    height: 100px;
     position: relative;
-    background: linear-gradient(to right bottom, #d65f00 21%, #0f4591 11%);
+    background: white;
     padding-top: 0.5rem;
 }
 
@@ -1419,6 +1451,5 @@ hr {
     opacity: 0.55;
     margin: 0 auto;
     width: 50%;
-
-    border-radius:100px;
+    border-radius: 100px;
 }

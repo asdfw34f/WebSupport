@@ -1,4 +1,5 @@
-﻿@using WebSupport.Data
+﻿@using WebSupport.Account
+@using WebSupport.Data
 @using WebSupport.Models.ViewModels
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -11,6 +12,8 @@
     IEnumerable<SelectListItem> statuses = new SelectList(Model.Statuses, "Id", "Name");
 
     ViewData.Add("statuses", statuses);
+
+    bool admin = Account.currentUser.Admin;
 }
 
 @model MyIssueViewModel
@@ -36,8 +39,12 @@
                 <th>Тема</th>
                 <th>Описание</th>
                 <th>Создано</th>
-                <th>Комментарии</th>
-                <th></th>
+                    <th>Статус</th>
+                @if (admin)
+                {
+                    <th></th>
+                    <th></th>
+                }
             </tr>
         </tread>
         <tbody>
@@ -62,9 +69,25 @@
                                 </td>
                             }
                         }
+                       
                         <td id="row-table-td">@issue.status</td>
-                        <td id="row-table-td">@Html.DropDownList("statuses", ViewData["statuses"] as IEnumerable<SelectListItem>, "Выберите для смены")</td>
-                        <td><button type="submit" id="btn-status" class="btn">Изменить статус</button></td>
+                        @{
+                            if (issue.issue.UpdatedOn != null)
+                            {
+                                string time = ((DateTime)issue.issue.UpdatedOn).ToString("f");
+                                <td id="row-table-td">@time</td>
+                            }
+                            else
+                            {
+                                <td id="row-table-td">
+                                </td>
+                            }
+                        }
+                        @if (admin)
+                        {
+                            <td id="row-table-td">@Html.DropDownList("statuses", ViewData["statuses"] as IEnumerable<SelectListItem>, "Выберите для смены")</td>
+                            <td><button type="submit" id="btn-status" class="btn">Изменить статус</button></td>
+                        }
                     </tr>
                 }
             }
