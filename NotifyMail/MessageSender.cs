@@ -15,14 +15,14 @@ namespace WebSupport.NotifyMail
 
             string passwrodSender = configuration["PasswordMail"].ToString();
             string usernameSender = configuration["SenderMail"].ToString();
-
+            /*
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
                 Credentials = new NetworkCredential(usernameSender, passwrodSender),
                 EnableSsl = true,
             };
-            smtpClient.Send(usernameSender, reciever, subject, message);
+            smtpClient.Send(usernameSender, reciever, subject, message);*/
         }
 
 

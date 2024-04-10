@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using WebSupport.Data;
+using WebSupport.DataEntities;
 using WebSupport.Repositories.Users;
 
 namespace WebSupport.Account
@@ -21,24 +23,15 @@ namespace WebSupport.Account
 
         async Task<bool> IAuthentication.Log_In(string username, string password, HttpContext context)
         {
-            var temp = await redmineContext.Users.SingleAsync(u => u.Login == username);
+            var temp = await redmineContext.Users.Where(u => u.Login == username).ToListAsync();
 
-            if (temp == null)
+            if (temp.Count > 0)
             {
-                return false;
-            }
+                var hashed = CalculateHash(temp[0].Salt, password);
 
-            var hashed = CalculateHash(temp.Salt, password);
+                var user = await isMatchUserAsync(username, hashed);
 
-            var matches = await redmineContext.Users.Where(u => u.Login == username && u.HashedPassword == hashed).ToListAsync();
 
-            if (matches.Count < 1)
-            {
-                return false;
-            }
-            else
-            {
-                var user = matches.First();
                 if (user != null)
                 {
                     var claims = new List<Claim> { new Claim(ClaimTypes.Name, username) };
@@ -46,16 +39,27 @@ namespace WebSupport.Account
                     await context.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
                     context.Response.Cookies.Append("username", username);
-                    context.Response.Cookies.Append("password", password);
+                    context.Response.Cookies.Append("password", hashed);
                     Account.currentUser = user;
                     Account.isAuthorized = true;
                     return true;
                 }
-                else
+            }
+            return false;
+        }
+
+        private async Task<User?> isMatchUserAsync(string username, string password)
+        {
+            var matches = await redmineContext.Users.Where(u => u.Login == username && u.HashedPassword == password).ToListAsync();
+            if (matches.Count > 0)
+            {
+                var user = matches.First();
+                if (user != null)
                 {
-                    return false;
+                    return user;
                 }
             }
+            return null;
         }
 
         public static string CalculateHash(string user_salt, string plain_password)
