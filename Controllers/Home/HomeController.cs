@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WebSupport.Data;
+using WebSupport.DataEntities;
 using WebSupport.Models;
 using WebSupport.Models.ViewModels;
 
@@ -12,7 +13,7 @@ namespace WebSupport.Controllers.Home
     {
         private readonly ILogger<HomeController> _logger;
         RedmineContext context;
-
+        private List<IssueViewModel> mainManageModel = new List<IssueViewModel>();
         public HomeController(ILogger<HomeController> logger, RedmineContext context)
         {
             _logger = logger;
@@ -87,12 +88,27 @@ namespace WebSupport.Controllers.Home
         #region manage
 
 
-        [Route("/manager/issue/new")]
+        [Route("/manager/issue/new/{id?}")]
         [Authorize]
-        public async Task<IActionResult> Manage()
+        public async Task<IActionResult> Manage(int? id = null)
         {
-            var issues = await context.Issues.Where(i => i.StatusId == 1).ToListAsync();
-            List<IssueViewModel> issuesViewModel = new List<IssueViewModel>();
+            List<Issue> issues = new List<Issue>();
+
+            var allow = await context.Members.Where(m => m.UserId == Account.Account.currentUser.Id).Select(mp => mp.ProjectId).ToListAsync();
+
+            var allowProjects = await context.Projects.Where(p => allow.Contains(p.Id)).ToListAsync();
+
+            ViewData.Add("projects", allowProjects);
+
+            if (id != null)
+            {
+                issues = await context.Issues.Where(i => i.StatusId == 1 && i.ProjectId == id).ToListAsync();
+            }
+            else
+            {
+                issues = await context.Issues.Where(i => i.StatusId == 1 && i.ProjectId == allowProjects[0].Id).ToListAsync();
+            }
+
             if (issues.Count > 0)
             {
                 issues.OrderByDescending(i => i.Id);
@@ -124,22 +140,105 @@ namespace WebSupport.Controllers.Home
                     string authorName = "";
                     if (author != null)
                     {
-                        authorName = author.Firstname + ' ' + author.Lastname;
+                        if (!string.IsNullOrEmpty(author.Lastname) && !string.IsNullOrEmpty(author.Firstname))
+                        {
+                            authorName = author.Lastname + ' ' + author.Firstname[0] + ".";
+                        }
+                        else if (!string.IsNullOrEmpty(authorName))
+                        {
+                            authorName = author.Firstname;
+                        }
+
                     }
                     else
                     {
                         authorName = "Автор был удалён";
                     }
-                    issuesViewModel.Add(
+                    mainManageModel.Add(
                                             new IssueViewModel(
                                                 issue,
                                                 projectName.Name,
+                                                projectName.Id,
                                                 trackerName.Name,
-                                                "Автор был удалён"
+                                                authorName
                                                 ));
                 }
             }
-            return View(issuesViewModel);
+
+            return View(mainManageModel);
+        }
+
+        [HttpPost]
+        [Route("/manager/issue/new/change")]
+        [Authorize]
+        public async Task<IActionResult> ChangedAsync(string value)
+        {
+            var allow = await context.Members.Where(m => m.UserId == Account.Account.currentUser.Id).Select(mp => mp.ProjectId).ToListAsync();
+
+            var allowProjects = await context.Projects.Where(p => allow.Contains(p.Id)).ToListAsync();
+
+            ViewData.Add("projects", allowProjects);
+
+            int projectSelected = int.Parse(value);
+            var project = await context.Projects.FindAsync(projectSelected);
+
+            var issues = await context.Issues.Where(i => i.StatusId == 1 && i.ProjectId == projectSelected).ToListAsync();
+
+            mainManageModel = new List<IssueViewModel>();
+            if (issues.Count > 0)
+            {
+                issues.OrderByDescending(i => i.Id);
+                foreach (var issue in issues)
+                {
+                    string projName = "";
+                    if (project != null)
+                    {
+                        projName = project.Name;
+                    }
+                    else
+                    {
+                        projName = "Проект был удалён";
+                    }
+
+                    var trackerName = await context.Trackers.FirstOrDefaultAsync(t => t.Id == issue.TrackerId);
+                    string trackName = "";
+                    if (trackerName != null)
+                    {
+                        trackName = trackerName.Name;
+                    }
+                    else
+                    {
+                        trackName = "Трекер был удалён";
+                    }
+
+                    var author = await context.Users.FindAsync(issue.AuthorId);
+                    string authorName = "";
+                    if (author != null)
+                    {
+                        if (!string.IsNullOrEmpty(author.Lastname) && !string.IsNullOrEmpty(author.Firstname))
+                        {
+                            authorName = author.Lastname + ' ' + author.Firstname[0] + ".";
+                        }
+                        else if (!string.IsNullOrEmpty(authorName))
+                        {
+                            authorName = author.Firstname;
+                        }
+                    }
+                    else
+                    {
+                        authorName = "Автор был удалён";
+                    }
+                    mainManageModel.Add(new IssueViewModel(
+                                                issue,
+                                                projName,
+                                                project.Id,
+                                                trackerName.Name,
+                                                authorName
+                                                ));
+                }
+            }
+
+            return View("Manage",mainManageModel);
         }
 
         #endregion
@@ -167,7 +266,15 @@ namespace WebSupport.Controllers.Home
         [Route("account/issue/myself")]
         public async Task<IActionResult> ViewMyIssue()
         {
-            var issues = await context.Issues.Where(i => i.AuthorId == Account.Account.currentUser.Id).OrderByDescending(i => i.Id).Take(100).ToListAsync();
+            List<Issue> issues = new List<Issue>();
+            if (Account.Account.currentUser.Admin)
+            {
+                issues = await context.Issues.Where(i => i.AssignedToId == Account.Account.currentUser.Id).OrderByDescending(i => i.Id).Take(100).ToListAsync();
+            }
+            else
+            {
+                issues = await context.Issues.Where(i => i.AuthorId == Account.Account.currentUser.Id).OrderByDescending(i => i.Id).Take(100).ToListAsync();
+            }
 
 
             MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);
@@ -208,6 +315,7 @@ namespace WebSupport.Controllers.Home
                         new IssueViewModel(
                             issue,
                             projectName.Name,
+                            projectName.Id,
                             trackerName.Name,
                             author.Firstname + ' ' + author.Lastname,
                             status.Name

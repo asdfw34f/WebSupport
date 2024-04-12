@@ -718,6 +718,7 @@ textarea::-ms-input-placeholder {
 
     table, th, td {
         background-color: whitesmoke;
+        color:black;
     }
 
     th, td {
@@ -747,8 +748,33 @@ textarea::-ms-input-placeholder {
     }
 
     .table {
-        background-color: whitesmoke;
+        border: 1px solid white;
+        table-layout: fixed;
+        width: 100%;
+        margin-bottom: 20px;
+        color:black;
     }
+
+        .table th {
+            font-weight: bold;
+            padding: 5px;
+            background: #efefef;
+            border: 1px solid #dddddd;
+        }
+
+        .table td {
+            padding: 5px 10px;
+            border: 1px solid #eee;
+            text-align: left;
+        }
+
+        .table tbody tr:nth-child(odd) {
+            background: #fff;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background: #F7F7F7;
+        }
 }
 
 #div_top_hypers {
@@ -761,7 +787,6 @@ textarea::-ms-input-placeholder {
 }
 
 table, th, td {
-    border: 1px solid black;
     border-collapse: separate;
     empty-cells: hide;
 }
@@ -786,7 +811,7 @@ th, td {
     color: #0f4591;
     padding: 5px 15px;
     border-radius: 10px;
-    border: 3px solid #0f4591;
+    border: 1px solid #0f4591;
     display: flex;
     justify-content: center;
 }
@@ -795,7 +820,7 @@ th, td {
         background-color: #d65f00;
         text-decoration: none;
         padding: 5px 15px;
-        border: 3px solid whitesmoke;
+        border: 1px solid whitesmoke;
         color: whitesmoke;
     }
 
@@ -815,12 +840,11 @@ th, td {
     display: inline-block;
     background-color: #fff;
     padding: 2rem 2rem;
-    color: #000;
     height: 100vh;
 }
 
 table {
-    border: 1px solid #ccc;
+    border: 1px solid #1e5484;
     width: 100%;
     margin: 10px;
     padding: 0;
@@ -842,7 +866,6 @@ table {
     }
 
     table th {
-        color: whitesmoke;
         background-color: whitesmoke;
         text-transform: capitalize;
         font-size: 18px;
@@ -894,7 +917,11 @@ form {
     margin: 5px;
     width: 100%;
 }
+.search-string{
+    padding:6px 10px;
+    border-radius:35px;
 
+}
 div {
     border-radius: 30px;
     width: 100%;
