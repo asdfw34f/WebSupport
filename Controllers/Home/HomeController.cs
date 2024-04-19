@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
@@ -29,12 +30,23 @@ namespace WebSupport.Controllers.Home
         // GET: HomeController
         [Route("/")]
         [Authorize]
-        public ActionResult AddIssue()
+        public async Task<ActionResult> AddIssue()
         {
             if (Account.Account.isAuthorized == false)
             {
                 return Redirect("/logout");
             }
+
+            List<AddIssueViewModel> list = new List<AddIssueViewModel>();
+            var projects = await context.Projects.ToListAsync();
+            var trackers = await context.Trackers.ToListAsync();
+            
+            foreach (var tracker in trackers) 
+            {
+                var projectId = await context.ProjectsTrackers.Where(w => w.TrackerId == tracker.Id).SingleAsync();
+                list.Add(new AddIssueViewModel() { tracker = tracker, projectID =  projectId.ProjectId});
+            }
+
 
 
             return View(context);
@@ -52,7 +64,6 @@ namespace WebSupport.Controllers.Home
             }
             else
             {
-                //   Repository.CreateIssue(project, tracker, subject, description);
                 var created = DateTime.Now;
 
                 var idTrack = Convert.ToInt32(tracker);
