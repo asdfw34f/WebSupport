@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics;
+using System.Net;
+using System.Security.Policy;
 using WebSupport.Data;
 using WebSupport.DataEntities;
 using WebSupport.Models;
@@ -12,6 +15,7 @@ namespace WebSupport.Controllers.Home
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private const string tgMessage = "https://api.telegram.org/bot5171320687:AAGOti4QBF0hymVEqO0VW7ws-LWu5UuaGHk/sendMessage?chat_id=-1002068097170&text=";
         RedmineContext context;
         private List<IssueViewModel> mainManageModel = new List<IssueViewModel>();
         public HomeController(ILogger<HomeController> logger, RedmineContext context)
@@ -31,6 +35,7 @@ namespace WebSupport.Controllers.Home
             {
                 return Redirect("/logout");
             }
+
 
             return View(context);
         }
@@ -70,16 +75,27 @@ namespace WebSupport.Controllers.Home
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
 
-                var subjectMess = $"Новая задача: {subject}";
-                var message = $"Текст задачи: {description}" +
-                    $"\nОт: {Account.Account.currentUser.Firstname + ' ' + Account.Account.currentUser.Lastname}" +
-                    $"\nВремя создания: {created.ToString()}";
+                var track = await context.Trackers.FindAsync(idTrack);
 
-
+                var subjectMess = $"\nНовая задача: {subject}";
+                var message = $"Новая задача: {track.Name}" +
+                    $"\nТема: {subject}" +
+                    $"\nОписание: {description}" +
+                    $"\nОт: {Account.Account.currentUser.Firstname + ' ' + Account.Account.currentUser.Lastname}";
+         
                 var admins = await context.Users.Where(u=> u.Admin == true).ToListAsync();
 
 
-                return View("AddIssue", context);
+                string encodedUrl = System.Net.WebUtility.UrlEncode(message);
+                var urlmsg =tgMessage+ encodedUrl;
+
+
+                using (WebClient client = new WebClient())
+                {
+                    string response = client.DownloadString(urlmsg);
+                    await Console.Out.WriteLineAsync(response);
+                }
+                    return View("AddIssue", context);
             }
 
         }
