@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -19,6 +20,10 @@ namespace WebSupport.Controllers.Home
         private const string tgMessage = "https://api.telegram.org/bot5171320687:AAGOti4QBF0hymVEqO0VW7ws-LWu5UuaGHk/sendMessage?chat_id=-1002068097170&text=";
         RedmineContext context;
         private List<IssueViewModel> mainManageModel = new List<IssueViewModel>();
+
+        List<TrackerViewModel> trackersVM = new List<TrackerViewModel>();
+
+
         public HomeController(ILogger<HomeController> logger, RedmineContext context)
         {
             _logger = logger;
@@ -36,20 +41,38 @@ namespace WebSupport.Controllers.Home
             {
                 return Redirect("/logout");
             }
-
-            List<AddIssueViewModel> list = new List<AddIssueViewModel>();
+           
+            
             var projects = await context.Projects.ToListAsync();
             var trackers = await context.Trackers.ToListAsync();
-            
-            foreach (var tracker in trackers) 
+
+            foreach (var tracker in trackers)
             {
-                var projectId = await context.ProjectsTrackers.Where(w => w.TrackerId == tracker.Id).SingleAsync();
-                list.Add(new AddIssueViewModel() { tracker = tracker, projectID =  projectId.ProjectId});
+                try
+                {
+                    var project = await context.ProjectsTrackers.Where(w => w.TrackerId == tracker.Id).SingleAsync();
+                    Project pro = (Project)await context.Projects.FindAsync(project.ProjectId);
+                    trackersVM.Add(new TrackerViewModel()
+                    {
+                        Id = tracker.Id,
+                        projectId = project.TrackerId,
+                        Name = tracker.Name,
+                        project = pro
+                    }
+                    );
+                }
+                catch
+                {
+
+                }
+                
+
             }
 
+            ViewBag.Projects = new SelectList(projects, "Id", "Name");
+            ViewBag.Trackers = new SelectList(trackersVM, "Id", "Name");
 
-
-            return View(context);
+            return View();
         }
 
         [HttpPost]
@@ -67,7 +90,7 @@ namespace WebSupport.Controllers.Home
                 var created = DateTime.Now;
 
                 var idTrack = Convert.ToInt32(tracker);
-                var proj =await  context.ProjectsTrackers.Where(t => t.TrackerId == idTrack).FirstAsync();
+                var proj = await context.ProjectsTrackers.Where(t => t.TrackerId == idTrack).FirstAsync();
 
 
                 context.Issues.Add(
@@ -82,7 +105,7 @@ namespace WebSupport.Controllers.Home
                         StatusId = 1,
                         CreatedOn = created
 
-                    }) ;
+                    });
                 await context.SaveChangesAsync();
                 ViewBag.CreateResult = "Задание создано";
 
@@ -93,12 +116,12 @@ namespace WebSupport.Controllers.Home
                     $"\nТема: {subject}" +
                     $"\nОписание: {description}" +
                     $"\nОт: {Account.Account.currentUser.Firstname + ' ' + Account.Account.currentUser.Lastname}";
-         
-                var admins = await context.Users.Where(u=> u.Admin == true).ToListAsync();
+
+                var admins = await context.Users.Where(u => u.Admin == true).ToListAsync();
 
 
                 string encodedUrl = System.Net.WebUtility.UrlEncode(message);
-                var urlmsg =tgMessage+ encodedUrl;
+                var urlmsg = tgMessage + encodedUrl;
 
 
                 using (WebClient client = new WebClient())
@@ -106,7 +129,7 @@ namespace WebSupport.Controllers.Home
                     string response = client.DownloadString(urlmsg);
                     await Console.Out.WriteLineAsync(response);
                 }
-                    return View("AddIssue", context);
+                return View("AddIssue", context);
             }
 
         }
@@ -182,7 +205,7 @@ namespace WebSupport.Controllers.Home
                         authorName = "Автор был удалён";
                     }
                     mainManageModel.Add(
-                                            new IssueViewModel(
+                        new IssueViewModel(
                                                 issue,
                                                 projectName.Name,
                                                 projectName.Id,
@@ -265,7 +288,7 @@ namespace WebSupport.Controllers.Home
                 }
             }
 
-            return View("Manage",mainManageModel);
+            return View("Manage", mainManageModel);
         }
 
         #endregion
@@ -363,5 +386,10 @@ namespace WebSupport.Controllers.Home
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public JsonResult GetTrackerByProjectId(int projectID)
+        {
+            return Json(trackersVM.Where(t => t.projectId == projectID).ToList());
+        }
+
     }
 }

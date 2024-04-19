@@ -5,12 +5,13 @@
 @using WebSupport.Account
 @using WebSupport.Data
 @using WebSupport.DataEntities
+@using WebSupport.Models.ViewModels
 
-@model RedmineContext
+@model TrackerViewModel
 @{
     ViewData["Title"] = "Главная";
     Layout = "~/Views/_LayoutMain.cshtml";
-
+    /*
     try
     {
 
@@ -23,7 +24,7 @@
     }
     catch
     {
-    }
+    }*/
 }
 
 
@@ -56,15 +57,22 @@
  
     <form asp-controller="Home" asp-action="AddIssue" method="post">
         <ul>
-          @*
+         
             <li>
-            <label for="">Проект к которому относится предстоящая задача</label>
+                @* <label for="">Проект к которому относится предстоящая задача</label>
             @Html.DropDownList("project", ViewData["project"] as IEnumerable<SelectListItem>, "Выберите проект")
+                *@
+                <select asp-for="projectId" class="form-select" id="projectID" asp-items="@ViewBag.Projects">
+                    <option disabled selected>--Выберите проект--</option>
+                </select>
             </li>
-            *@  
             <li>
                 <label for="">Трек для назначения исполнителя</label>
+                <select asp-for="Id" class="form-select" id="trackerID"></select>     
+                @*
                 @Html.DropDownList("tracker", ViewData["tracker"] as IEnumerable<SelectListItem>, new { @class = "form-control", required = "required" })
+
+                *@
             </li>
             <li>
                 <label for="">Кратко с чем связано</label>
@@ -87,17 +95,52 @@
             </li>
         </ul>
     </form>
+   @*
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#tracker").on("change", function () {
-                var a = $("#tracker option:selected").text();
-                if (a == null || a == "") {
-                    $('#subAdd').attr('disabled', 'disabled');
-                } else {
-                    $('#subAdd').removeAttr('disabled');
-                }
-            }
+    $(document).ready(function () {
+    $("#tracker").on("change", function () {
+    var a = $("#tracker option:selected").text();
+    if (a == null || a == "") {
+    $('#subAdd').attr('disabled', 'disabled');
+    } else {
+    $('#subAdd').removeAttr('disabled');
+    }
+    }
 
-        });
+    });
     </script>
+   *@ 
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            getTrackerByProjectId();
+        })
+
+        $("#projectID").change(function () {
+            getTrackerByProjectId();
+        });
+
+        var getTrackerByProjectId = function () {
+            var projID = $('#projectID option:selected').val();
+            $.ajax({
+                url: '@Url.Action("GetTrackerByProjectId", "Home")',
+                type: 'GET',
+                data: {
+                    projectID: projID,
+                },
+                success: function (data) {
+                    $('#trackerID').empty()
+                    $(data).each(
+                        function (index, item) {
+                            $('#trackerID').append('<option value="' + item.id + '">' + item.name + '</option>')
+                        }
+                    )
+                }
+
+            })
+        }
+
+    </script>
+}
