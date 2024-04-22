@@ -26,7 +26,6 @@ namespace WebSupport.Controllers.Home
         {
             _logger = logger;
             this.context = context;
-
         }
 
         #region create issue
@@ -45,28 +44,6 @@ namespace WebSupport.Controllers.Home
             var trackers = await context.Trackers.ToListAsync();
 
             trackersVM = new List<TrackerViewModel>();
-           /* foreach (var tracker in trackers)
-            {
-                try
-                {
-                    var project = await context.ProjectsTrackers.Where(w => w.TrackerId == tracker.Id).SingleAsync();
-                    Project pro = (Project)await context.Projects.FindAsync(project.ProjectId);
-                    trackersVM.Add(new TrackerViewModel()
-                    {
-                        Id = tracker.Id,
-                        projectId = project.TrackerId,
-                        Name = tracker.Name,
-                        project = pro
-                    }
-                    );
-                }
-                catch
-                {
-
-                }
-                
-
-            }*/
 
             ViewBag.Projects = new SelectList(projects, "Id", "Name");
             ViewBag.Trackers = new SelectList(trackers, "Id", "Name");
@@ -133,8 +110,6 @@ namespace WebSupport.Controllers.Home
 
         }
         #endregion
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
