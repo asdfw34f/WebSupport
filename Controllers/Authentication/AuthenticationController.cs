@@ -15,21 +15,21 @@ namespace WebSupport.Controllers.Authentication
             _authenticater = authentication;
         }
 
-        [Route("/login")]
+        [Route("/Web-Support/login")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("/login")]
+        [Route("/Web-Support/login")]
         public async Task<IActionResult> Index(string username, string password)
         {
             var res = await _authenticater.Log_In(username, password, HttpContext);
             if (res)
             {
                 ViewBag.username = string.Format("Successfull logged-in", username);
-                return Redirect("/");
+                return Redirect("/Web-Support");
             }
             else
             {

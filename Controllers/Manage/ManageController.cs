@@ -19,11 +19,11 @@ namespace WebSupport.Controllers.Manage
             this.context = context;
             if (!Account.Account.currentUser.Admin)
             {
-                Redirect("/");
+                Redirect("/Web-Support");
             }
         }
 
-        [Route("/manager/issue/new/{id?}")]
+        [Route("/Web-Support/manager/issue/new/{id?}")]
         [Authorize]
         public async Task<IActionResult> Manage(int? id = null)
         {
@@ -106,7 +106,7 @@ namespace WebSupport.Controllers.Manage
         }
 
         [HttpPost]
-        [Route("/manager/issue/new/change")]
+        [Route("/Web-Support/manager/issue/new/change")]
         [Authorize]
         public async Task<IActionResult> ChangedAsync(string value)
         {
@@ -181,7 +181,7 @@ namespace WebSupport.Controllers.Manage
 
         [HttpPost]
         [Authorize]
-        [Route("/manager/issue/submit/{id?}")]
+        [Route("/Web-Support/manager/issue/submit/{id?}")]
         public async Task<IActionResult> Submit(string id)
         {
             var issue = await context.Issues.FindAsync(int.Parse(id));
@@ -193,7 +193,7 @@ namespace WebSupport.Controllers.Manage
                 await context.SaveChangesAsync();
             }
 
-            return Redirect("/manager/issue/new/");
+            return Redirect("/Web-Support/manager/issue/new/");
         }
 
     }

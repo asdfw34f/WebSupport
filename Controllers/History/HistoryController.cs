@@ -17,7 +17,7 @@ namespace WebSupport.Controllers.History
             this.context = context;
             if (!Account.Account.currentUser.Admin)
             {
-                Redirect("/");
+                Redirect("/Web-Support");
             }
         }
 
@@ -25,7 +25,7 @@ namespace WebSupport.Controllers.History
 
         [HttpGet]
         [Authorize]
-        [Route("/account/history")]
+        [Route("/Web-Support/account/history")]
         public async Task<IActionResult> History()
         {
             List<Issue> issues = new List<Issue>();
@@ -35,7 +35,7 @@ namespace WebSupport.Controllers.History
             }
             else
             {
-                Redirect("/");
+                Redirect("/Web-Support/");
             }
 
             MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);

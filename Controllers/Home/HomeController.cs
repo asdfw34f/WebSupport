@@ -31,13 +31,13 @@ namespace WebSupport.Controllers.Home
 
         #region create issue
         // GET: HomeController
-        [Route("/")]
+        [Route("/Web-Support")]
         [Authorize]
         public async Task<ActionResult> AddIssue()
         {
             if (Account.Account.isAuthorized == false)
             {
-                return Redirect("/logout");
+                return Redirect("/Web-Support/logout");
             }
            
             
@@ -75,7 +75,7 @@ namespace WebSupport.Controllers.Home
         }
 
         [HttpPost]
-        [Route("/")]
+        [Route("/Web-Support")]
         [Authorize]
         public async Task<ActionResult> AddIssueAsync(string projectID, string Id, string subject, string description)
         {
@@ -135,14 +135,15 @@ namespace WebSupport.Controllers.Home
         #endregion
 
 
-  
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Authorize]
+        [Route("/Web-Support/manager/GetTrackerByProjectId")]
         public async Task<JsonResult> GetTrackerByProjectId(int projectID)
         {
             var tracksProject = await context.ProjectsTrackers.Where(t => t.ProjectId == projectID).ToListAsync();

@@ -23,7 +23,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IAuthentication, Authentication>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options => options.LoginPath = "/login");
+    .AddCookie(options => options.LoginPath = "/Web-Support/login");
 builder.Services.AddAuthorization();
 
 var bhost = new HostBuilder();
@@ -72,7 +72,7 @@ app.UseStatusCodePages(async statusCodeContext =>
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Web-Support/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -83,15 +83,15 @@ app.UseStaticFiles();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Authentication}/{action=Index}/{id?}",
+    pattern: "/Web-Support/login",
     defaults: new { controller = "Authentication", action = "Index" });
 
-app.MapGet("/logout", async (HttpContext context) =>
+app.MapGet("/Web-Support/logout", async (HttpContext context) =>
 {
     await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     context.Response.Cookies.Delete("username");
     context.Response.Cookies.Delete("password");
 
-    return Results.Redirect("/login");
+    return Results.Redirect("/Web-Support/login");
 });
 app.Run();
