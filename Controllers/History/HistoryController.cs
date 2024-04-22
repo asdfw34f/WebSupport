@@ -31,7 +31,7 @@ namespace WebSupport.Controllers.History
             List<Issue> issues = new List<Issue>();
             if (Account.Account.currentUser.Admin)
             {
-                issues = await context.Issues.Where(i => i.AssignedToId == Account.Account.currentUser.Id).OrderByDescending(i => i.Id).Take(100).ToListAsync();
+                issues = await context.Issues.Where(i => i.AssignedToId == Account.Account.currentUser.Id).OrderByDescending(i => i.CreatedOn).Take(100).ToListAsync();
             }
             else
             {
@@ -40,6 +40,8 @@ namespace WebSupport.Controllers.History
 
             MyIssueViewModel myIssuesViewModel = new MyIssueViewModel(context);
             myIssuesViewModel.issues = new List<IssueViewModel>();
+
+            issues = issues.OrderByDescending(i => i.CreatedOn).ToList();
 
             if (issues.Count > 0)
             {

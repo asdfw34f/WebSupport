@@ -40,16 +40,16 @@
     </div>    
  
     <form asp-controller="Home" asp-action="AddIssue" method="post">
-        <ul>
+        <ul class="form-group">
          
             <li style="text-align:center;"> 
-                <select asp-for="projectId" class="form-select" id="projectID" asp-items="@ViewBag.Projects">
+                <select asp-for="projectId" class="form-select form-select-lg mb-3" id="projectID" asp-items="@ViewBag.Projects">
                     <option disabled selected>--Выберите проект--</option>
                 </select>
             </li>
             <li>
                 <label for="">Трек для назначения исполнителя</label>
-                <select asp-for="Id" class="form-select" id="trackerID" disabled></select>     
+                <select asp-for="Id" class="form-select form-select-sm" id="trackerID" disabled></select>
             </li>
             <li>
                 <label for="">Кратко с чем связано</label>

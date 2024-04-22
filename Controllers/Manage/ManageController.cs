@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WebSupport.Account;
 using WebSupport.Data;
 using WebSupport.DataEntities;
 using WebSupport.Models.ViewModels;
@@ -12,10 +13,14 @@ namespace WebSupport.Controllers.Manage
     {
         private RedmineContext context;
         private List<IssueViewModel> mainManageModel = new List<IssueViewModel>();
-
+        
         public ManageController(RedmineContext context)
         {
             this.context = context;
+            if (!Account.Account.currentUser.Admin)
+            {
+                Redirect("/");
+            }
         }
 
         [Route("/manager/issue/new/{id?}")]
