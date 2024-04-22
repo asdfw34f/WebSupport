@@ -21,9 +21,8 @@ namespace WebSupport.Controllers.Home
         RedmineContext context;
         private List<IssueViewModel> mainManageModel = new List<IssueViewModel>();
 
-        List<TrackerViewModel> trackersVM = new List<TrackerViewModel>();
-
-
+        private List<TrackerViewModel> trackersVM;
+        
         public HomeController(ILogger<HomeController> logger, RedmineContext context)
         {
             _logger = logger;
@@ -46,7 +45,8 @@ namespace WebSupport.Controllers.Home
             var projects = await context.Projects.ToListAsync();
             var trackers = await context.Trackers.ToListAsync();
 
-            foreach (var tracker in trackers)
+            trackersVM = new List<TrackerViewModel>();
+           /* foreach (var tracker in trackers)
             {
                 try
                 {
@@ -67,10 +67,10 @@ namespace WebSupport.Controllers.Home
                 }
                 
 
-            }
+            }*/
 
             ViewBag.Projects = new SelectList(projects, "Id", "Name");
-            ViewBag.Trackers = new SelectList(trackersVM, "Id", "Name");
+            ViewBag.Trackers = new SelectList(trackers, "Id", "Name");
 
             return View();
         }
@@ -78,9 +78,9 @@ namespace WebSupport.Controllers.Home
         [HttpPost]
         [Route("/")]
         [Authorize]
-        public async Task<ActionResult> AddIssueAsync(/*string project, */string tracker, string subject, string description)
+        public async Task<ActionResult> AddIssueAsync(string projectID, string Id, string subject, string description)
         {
-            if (/*string.IsNullOrEmpty(project) ||*/ string.IsNullOrEmpty(tracker))
+            if (/*string.IsNullOrEmpty(project) ||*/ string.IsNullOrEmpty(Id))
             {
                 ViewBag.CreateResult = "Заполните все поля";
                 return View("AddIssue");
@@ -89,7 +89,7 @@ namespace WebSupport.Controllers.Home
             {
                 var created = DateTime.Now;
 
-                var idTrack = Convert.ToInt32(tracker);
+                var idTrack = Convert.ToInt32(Id);
                 var proj = await context.ProjectsTrackers.Where(t => t.TrackerId == idTrack).FirstAsync();
 
 
@@ -129,7 +129,7 @@ namespace WebSupport.Controllers.Home
                     string response = client.DownloadString(urlmsg);
                     await Console.Out.WriteLineAsync(response);
                 }
-                return View("AddIssue", context);
+                return View("AddIssue");
             }
 
         }
@@ -386,9 +386,16 @@ namespace WebSupport.Controllers.Home
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        public JsonResult GetTrackerByProjectId(int projectID)
+        public async Task<JsonResult> GetTrackerByProjectId(int projectID)
         {
-            return Json(trackersVM.Where(t => t.projectId == projectID).ToList());
+            var tracksProject = await context.ProjectsTrackers.Where(t => t.ProjectId == projectID).ToListAsync();
+            List<int> ids = new List<int>();
+            foreach (var track in tracksProject)
+            {
+                ids.Add(track.TrackerId);
+            }
+            var p = await context.Trackers.Where(t => ids.Contains(t.Id)).ToListAsync();
+            return Json(p);
         }
 
     }
