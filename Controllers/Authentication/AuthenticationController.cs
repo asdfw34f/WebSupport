@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using WebSupport.Account;
 using WebSupport.Models;
-using WebSupport.NotifyMail;
 
 namespace WebSupport.Controllers.Authentication
 {

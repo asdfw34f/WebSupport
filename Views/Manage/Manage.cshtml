@@ -39,19 +39,6 @@
         </ul>
 
     </div>
-
-    <div class="sort-div">
-        @{
-            List<Project> projects = ViewData["projects"] as List<Project>;
-
-
-            IEnumerable<SelectListItem> projectDDL = new SelectList(projects.ToList(), "Id", "Name");
-
-            ViewData.Add("projectDDL", projectDDL);
-        }
-        @Html.DropDownList("projectsDDL", ViewData["projectDDL"] as IEnumerable<SelectListItem>, new { @class = "form-control", required = "required", @onchange = "GetSelectedTextValue(this)" })
-    </div>
-
     <table name="table" class="table">
         <tread class="table-row-tread">
             <tr class="columns-table">
@@ -81,33 +68,14 @@
                         {
                             <td name="time" id="row-table-td">@issue.AuthorName</td>
                         }
-                        <td><a class="assign-self-a"  href="manager/issue/submit/@issue.issue.Id">Взять в работу</a></td>
+                        <td>
+                            <form asp-action="Submit" asp-controller="Manage" style="text-align:center; background:none;">
+                                <input id="id" name="id" value="@issue.issue.Id" hidden/>
+                                <input id="submit" type="submit" class="assign-self-a" value="Взять в работу"/>
+                            </form></td>
                     </tr>
                 }
             }
         </tbody>
     </table>
 </div>
-<script type="text/javascript">
-    function GetSelectedTextValue(projectsDDL) {
-        var selectedText = projectsDDL.options[projectsDDL.selectedIndex].innerHTML;
-        var selectedValue = projectsDDL.value;
-
-        var formData = new FormData();
-        formData.append("value", projectsDDL.value);
-
-
-        $.ajax({
-            method: 'post',
-            url: "/manager/issue/new/"+projectsDDL.value,
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function () {
-            }
-        });
-
-        alert("Selected text: " + selectedText + " Value: " + selectedValue);
-       // location.reload();
-    }
-</script>

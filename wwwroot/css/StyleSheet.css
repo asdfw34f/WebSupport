@@ -161,6 +161,7 @@ textarea::-ms-input-placeholder {
         resize: none;
         line-height: 24px;
     }
+
     .main {
         width: 100vw;
         display: block;
@@ -196,7 +197,7 @@ textarea::-ms-input-placeholder {
     .table-scroll {
         margin-left: 0;
         max-width: 430px;
-        width:100vw;
+        width: 100vw;
         overflow-x: hidden;
         background-color: white;
     }
@@ -329,7 +330,7 @@ textarea::-ms-input-placeholder {
         border-radius: 2px;
         height: 65px;
         position: relative;
-        background: linear-gradient(to right bottom, #d65f00 21%, #0f4591 11%);
+        background: linear-gradient(to right bottom, #d65f00 21%, #1e5484 11%);
         padding-top: 0.5rem;
     }
 
@@ -366,11 +367,13 @@ textarea::-ms-input-placeholder {
     }
 
     .assign-self-a {
+        background-color: white;
         text-decoration: none;
-        color: #0f4591;
+        color: white;
         padding: 5px 15px;
-        border: 3px solid #0f4591;
+        border: 3px solid #1e5484;
         border-radius: 10px;
+        width: 100vw;
     }
 
         .assign-self-a:hover {
@@ -382,20 +385,22 @@ textarea::-ms-input-placeholder {
         }
 }
 
-@media screen and (max-width: 900px) and (min-width:521px){
+@media screen and (max-width: 900px) and (min-width:521px) {
     #user-label {
         text-align: start;
         border: 1px solid #1e5484;
         padding: 5px 15px;
         color: #1e5484;
     }
+
     .table-scroll {
-        width:100vw;
+        width: 100vw;
         margin-left: 0;
         max-width: 900px;
         overflow-x: auto;
         background-color: white;
     }
+
     #main-header {
         margin-top: 0px;
         margin-bottom: 0px;
@@ -404,7 +409,7 @@ textarea::-ms-input-placeholder {
     table {
         width: 100vw;
         border: 0;
-        text-align:center;
+        text-align: center;
     }
 
         table thead {
@@ -451,7 +456,7 @@ textarea::-ms-input-placeholder {
 
         table td:first-child {
             background-color: #E1E2E2;
-            color: #0f4591;
+            color: #1e5484;
             font-weight: 550;
         }
 
@@ -486,6 +491,7 @@ textarea::-ms-input-placeholder {
         font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
         font-size: 20px;
     }
+
     textarea {
         width: 500px;
         height: 200px;
@@ -496,6 +502,7 @@ textarea::-ms-input-placeholder {
         resize: none;
         line-height: 24px;
     }
+
     .main {
         width: 100vw;
         display: block;
@@ -626,7 +633,7 @@ textarea::-ms-input-placeholder {
 
             .sidebar-nav li a {
                 display: block;
-                color: #0f4591;
+                color: #1e5484;
                 text-decoration: none;
                 padding: 10px 15px 10px 30px;
             }
@@ -654,7 +661,7 @@ textarea::-ms-input-placeholder {
         border-radius: 2px;
         height: 65px;
         position: relative;
-        background: linear-gradient(to right bottom, #d65f00 21%, #0f4591 11%);
+        background: linear-gradient(to right bottom, #d65f00 21%, #1e5484 11%);
         padding-top: 0.5rem;
     }
 
@@ -692,9 +699,9 @@ textarea::-ms-input-placeholder {
 
     .assign-self-a {
         text-decoration: none;
-        color: #0f4591;
+        color: #1e5484;
         padding: 5px 15px;
-        border: 3px solid #0f4591;
+        border: 3px solid #1e5484;
     }
 
         .assign-self-a:hover {
@@ -708,17 +715,19 @@ textarea::-ms-input-placeholder {
 
 
 @media screen and (min-width: 901px) {
+
     #main-header {
         margin-top: -40px;
         margin-bottom: 0px;
     }
+
     .table {
         background-color: whitesmoke;
     }
 
     table, th, td {
         background-color: whitesmoke;
-        color:black;
+        color: black;
     }
 
     th, td {
@@ -728,7 +737,43 @@ textarea::-ms-input-placeholder {
         td[name=desc-cell] {
             background-color: whitesmoke;
         }
+        td[name=desc-cell] {
+            min-width: 500px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
+        td[name=project-cell] {
+            max-width: 300px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        td[name=subject-cell] {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        td[name=tracker-cell] {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        td[name=created-cell] {
+            min-width: 220px;
+        }
+
+        td[name=update-cell] {
+            min-width: 200px;
+        }
+
+        td[name=status-cell] {
+            min-width: 115px;
+            white-space: -moz-pre-wrap; /* Firefox */
+            white-space: -o-pre-wrap; /* Opera */
+            white-space: pre-wrap; /* Chrome */
+            word-wrap: break-word; /* IE */
+        }
     #row-table-td {
         background-color: whitesmoke;
     }
@@ -752,7 +797,7 @@ textarea::-ms-input-placeholder {
         table-layout: fixed;
         width: 100%;
         margin-bottom: 20px;
-        color:black;
+        color: black;
     }
 
         .table th {
@@ -796,10 +841,7 @@ th, td {
     border: 2px solid #69c;
 }
 
-    td[name=desc-cell] {
-        white-space: pre-wrap;
-        word-break: break-word;
-    }
+
 
 #row-table-td {
     background-color: whitesmoke;
@@ -808,10 +850,10 @@ th, td {
 
 .assign-self-a {
     text-decoration: none;
-    color: #0f4591;
+    color: #1e5484;
     padding: 5px 15px;
     border-radius: 10px;
-    border: 1px solid #0f4591;
+    border: 1px solid #1e5484;
     display: flex;
     justify-content: center;
 }
@@ -873,12 +915,12 @@ table {
     }
 
 .columns-table {
-    background-color: #0f4591;
+    background-color: #1e5484;
     color: whitesmoke;
 }
 
 .table-row-tread {
-    background-color: #0f4591;
+    background-color: #1e5484;
 }
 
 body,
@@ -917,15 +959,16 @@ form {
     margin: 5px;
     width: 100%;
 }
-.search-string{
-    padding:6px 10px;
-    border-radius:35px;
 
+.search-string {
+    padding: 6px 10px;
+    border-radius: 35px;
 }
+
 div {
     border-radius: 30px;
     width: 100%;
-    background-color: #E6E2DD;
+    background-color: white;
     padding: 0% 0%;
 }
 
@@ -1044,7 +1087,7 @@ h2 {
     margin-right: 7%;
     display: block;
     margin: 0 auto;
-    color: darkblue;
+    color: #1e5484;
 }
 
 #btn-status {
@@ -1090,7 +1133,7 @@ select {
     word-break: break-word;
     max-width: 430px;
     box-sizing: border-box;
-    background-color: #0f4591;
+    background-color: #1e5484;
     color: whitesmoke;
     padding: 5px 10px;
     width: 100%;
@@ -1137,7 +1180,7 @@ footer {
     background-color: #1e5484;
     clear: both;
     color: whitesmoke;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
     footer div {
@@ -1260,7 +1303,7 @@ footer {
 
         .sidebar-nav li a {
             display: block;
-            color: #0f4591;
+            color: #1e5484;
             text-decoration: none;
             padding: 10px 15px 10px 30px;
         }
@@ -1474,7 +1517,7 @@ footer {
 /*-------------------------------*/
 
 hr {
-    background-color: #0f4591;
+    background-color: #1e5484;
     opacity: 0.55;
     margin: 0 auto;
     width: 50%;
