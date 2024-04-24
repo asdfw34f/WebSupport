@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Renci.SshNet;
+using System.Net;
 using WebSupport.Account;
 using WebSupport.Data;
 using WebSupport.Repositories.Users;
@@ -12,6 +15,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var con = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+
+
+
+
 
 builder.Services.AddDbContext<RedmineContext>(
     options => options.UseMySQL(

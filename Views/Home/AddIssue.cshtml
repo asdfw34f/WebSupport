@@ -10,7 +10,7 @@
 @model TrackerViewModel
 @{
     ViewData["Title"] = "Главная";
-    Layout = "~/Views/_LayoutMain.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     string name = Account.currentUser.Lastname + ' ' + Account.currentUser.Firstname[0].ToString() + '.';
     string admin = "";
     if (Account.currentUser.Admin)

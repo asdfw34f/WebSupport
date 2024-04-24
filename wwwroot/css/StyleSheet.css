@@ -771,6 +771,7 @@ hr {
             border: 3px solid #1e5484;
             display: block;
             margin-bottom: 70px;
+            border-radius: 15px;
         }
 
         /*Here we are setting each td display to block*/
@@ -780,6 +781,7 @@ hr {
             font-size: .8em;
             text-align: left;
             max-width: 310px;
+            border-radius:5px;
         }
 
             table td[name=desc-cell] {
@@ -946,6 +948,7 @@ Now the other data-label we have added on each td comes into play.
             border: 3px solid #1e5484;
             display: block;
             margin-bottom: 70px;
+            border-radius: 15px;
         }
 
         /*Here we are setting each td display to block*/
@@ -955,6 +958,7 @@ Now the other data-label we have added on each td comes into play.
             font-size: .8em;
             text-align: left;
             max-width: 810px;
+            border-radius: 5px;
         }
 
             table td[name=desc-cell] {
