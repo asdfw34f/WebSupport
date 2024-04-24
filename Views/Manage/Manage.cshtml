@@ -56,22 +56,21 @@
                 foreach (var issue in Model)
                 {
                     <tr>
-                        <td name="tracker-cell" id="row-table-td">@issue.TrackerName</td>
-                        <td name="subject-cell" id="row-table-td">@issue.issue.Subject</td>
-                        <td id="row-table-td" name="desc-cell" class="cell-multi">@issue.issue.Description</td>
+                        <td data-label="Трекер: " name="tracker-cell" id="row-table-td">&ensp;@issue.TrackerName</td>
+                        <td data-label="Тема: " name="subject-cell" id="row-table-td">&ensp;@issue.issue.Subject</td>
+                        <td data-label="Описание: " id="row-table-td" name="desc-cell" class="cell-multi">&ensp;@issue.issue.Description</td>
                         @if (issue.issue.CreatedOn != null)
                         {
                             string time = ((DateTime)issue.issue.CreatedOn).ToString("g");
-                            <td  name="created-cell" id="row-table-td">@issue.AuthorName (@time)</td>
+                            <td data-label="Автор: " name="created-cell" id="row-table-td">&ensp;@issue.AuthorName (@time)</td>
                         }
                         else
                         {
-                            <td name="created-cell" id="row-table-td">@issue.AuthorName</td>
+                            <td data-label="Автор: " name="created-cell" id="row-table-td">&ensp;@issue.AuthorName</td>
                         }
-                        <td>
-                            <form asp-action="Submit" asp-controller="Manage" style="text-align:center; background:none;">
+                        <td name="assign"><form asp-action="Submit" asp-controller="Manage" style="text-align:center; background:none;">
                                 <input id="id" name="id" value="@issue.issue.Id" hidden/>
-                                <input id="submit" type="submit" class="assign-self-a" value="Взять в работу"/>
+                                <input id="submit" style="text-align:center;" type="submit" class="assign-self-a" value="Взять в работу"/>
                             </form></td>
                     </tr>
                 }

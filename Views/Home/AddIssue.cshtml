@@ -11,23 +11,21 @@
 @{
     ViewData["Title"] = "Главная";
     Layout = "~/Views/_LayoutMain.cshtml";
+    string name = Account.currentUser.Lastname + ' ' + Account.currentUser.Firstname[0].ToString() + '.';
+    string admin = "";
+    if (Account.currentUser.Admin)
+    {
+        admin = "Администратор";
+    }
+    else
+    {
+        admin = "Сотрудник";
+    }
 }
 
 
-<div class="table-scroll">
-    @{
-        string name = Account.currentUser.Lastname + ' ' + Account.currentUser.Firstname[0].ToString() +'.';
-        string admin = "";
-        if (Account.currentUser.Admin)
-        {
-            admin = "Администратор";
-        }
-        else
-        {
-            admin = "Сотрудник";
-        }
-    }
-    <div id="div_top_hypers">
+<div class="table-scroll" >
+    <div id="div_top_hypers" style="background-color:white;">
         <ul style="margin-top:15px; text-align:end; font-size:18px;" id="ul_top_hypers">
             <li id="user-label" >@admin: @name</li>
             <li>
@@ -36,42 +34,42 @@
                 <br />
             </li>
         </ul>
-        
-    </div>    
- 
-    <form asp-controller="Home" asp-action="AddIssue" method="post">
-        <ul class="form-group">
-         
-            <li style="text-align:center;"> 
-                <select asp-for="projectId" class="form-select form-select-lg mb-3" id="projectID" asp-items="@ViewBag.Projects">
-                    <option disabled selected>--Выберите проект--</option>
-                </select>
-            </li>
-            <li>
-                <label for="">Трек для назначения исполнителя</label>
-                <select asp-for="Id" class="form-select" id="trackerID" disabled></select>
-            </li>
-            <li>
-                <label for="">Кратко с чем связано</label>
-                <br />
-                <input type="text" name="subject" value="" placeholder="Тема задачи" required />
-            </li>
-            <li>
-                <label for="">Суть задачи</label>
-                <br />
-                <textarea autocomplete="off" type="text" cols="40" rows="10" name="description" placeholder="Описание" value="" required></textarea>
-            </li>
-            <li>
-                <label class="bag">
-                    @ViewBag.CreateResult
+    </div>
+    <div class="form-control" style="margin:auto;">
+        <form asp-controller="Home" asp-action="AddIssue" method="post" style="margin:auto;">
+            <ul>
+                <li style="text-align:center;">
+                    <select asp-for="projectId" class="form-select form-select-lg mb-3" id="projectID" asp-items="@ViewBag.Projects">
+                        <option disabled selected>--Выберите проект--</option>
+                    </select>
+                </li>
+                <li>
+                    <label for="">Трек для назначения исполнителя</label>
+                    <select asp-for="Id" class="form-select" id="trackerID" disabled></select>
+                </li>
+                <li>
+                    <label for="">Кратко с чем связано</label>
+                    <br />
+                    <input type="text" name="subject" value="" placeholder="Тема задачи" required />
+                </li>
+                <li>
+                    <label for="">Суть задачи</label>
+                    <br />
+                    <textarea autocomplete="off" type="text" cols="40" rows="10" name="description" placeholder="Описание" value="" required></textarea>
+                </li>
+                <li>
+                    <input id="subAdd" class="btn" type="submit" value="Подать заявку" action="AddIssue" />
+                </li>
+                <li>
+                    <label class="bag">
+                        @ViewBag.CreateResult
 
-                </label>
-            </li>
-            <li>
-                <input id="subAdd" class="btn" type="submit" value="Подать заявку" action="AddIssue" />
-            </li>
-        </ul>
-    </form>
+                    </label>
+                </li>
+            </ul>
+        </form>
+ </div>
+
 </div>
 
 @section Scripts {

@@ -88,7 +88,7 @@ namespace WebSupport.Controllers.History
 
             return View("HistoryMyIssues", myIssuesViewModel);
         }
-
         #endregion
+
     }
 }
