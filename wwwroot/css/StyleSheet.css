@@ -65,7 +65,7 @@ table {
     }
 
     table tr {
-        background-color: #f8f8f8;
+        background-color: white;
         border: 1px solid #ddd;
         padding: .35em;
     }
@@ -85,9 +85,9 @@ table {
 
 
 #div_top_hypers {
-    background-color: #eeeeee;
+    background-color: white;
     display: inline;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 
 #ul_top_hypers li {
@@ -127,7 +127,7 @@ table {
 
 body,
 html {
-    background: whitesmoke;
+    background: white;
     width: 100%;
     height: 100%;
     font-family: "Gill Sans", sans-serif;
@@ -137,7 +137,7 @@ html {
 body {
     position: relative;
     overflow-x: hidden;
-    background-color: whitesmoke;
+    background-color: white;
     display: blosk;
 }
 
@@ -195,7 +195,7 @@ input {
     position: center;
     border-color: whitesmoke;
     color: whitesmoke;
-    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.1);
 }
 
     input[type=text]::placeholder {
@@ -307,7 +307,7 @@ h2 {
     border: 0;
     border-radius: 10px;
     background-color: #1e5484;
-    color: whitesmoke;
+    color: white;
     font-weight: 400;
     padding: 6px 30px;
 }
@@ -336,7 +336,7 @@ select {
     max-width: 430px;
     box-sizing: border-box;
     background-color: #1e5484;
-    color: whitesmoke;
+    color: white;
     padding: 5px 10px;
     width: 100%;
     box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.09);
@@ -382,7 +382,7 @@ footer {
     height: 70px; /* Height of the footer */
     background-color: #1e5484;
     clear: both;
-    color: whitesmoke;
+    color: white;
     opacity: 0.8;
 }
 
@@ -391,8 +391,9 @@ footer {
     }
 
 .footer-link {
+    text-decoration: none;
     font-size: 16px;
-    color: whitesmoke;
+    color: white;
     background-color: #1e5484;
 }
 
@@ -421,7 +422,7 @@ footer {
     margin-left: -220px;
     overflow-y: auto;
     overflow-x: hidden;
-    background: whitesmoke;
+    background: white;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -439,7 +440,7 @@ footer {
 #page-content-wrapper {
     width: 100%;
     padding-top: 70px;
-    background-color: whitesmoke;
+    background-color: white;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -448,7 +449,7 @@ footer {
 }
 
 .overlay {
-    background-color: whitesmoke;
+    background-color: white;
 }
 /*-------------------------------*/
 /*     Sidebar nav styles        */
@@ -517,7 +518,7 @@ footer {
             .sidebar-nav li.open a:hover,
             .sidebar-nav li.open a:active,
             .sidebar-nav li.open a:focus {
-                color: whitesmoke;
+                color: white;
                 text-decoration: none;
                 background-color: #d65f00;
                 border-radius: 15px;
@@ -1023,7 +1024,7 @@ Now the other data-label we have added on each td comes into play.
             color: #1e5484;
             padding: 5px 15px;
             border: 3px solid #1e5484;
-            background-color: whitesmoke;
+            background-color: white;
         }
 
             .assign-self-a:hover {
@@ -1044,11 +1045,11 @@ Now the other data-label we have added on each td comes into play.
         }
 
         .table {
-            background-color: whitesmoke;
+            background-color: white;
         }
 
         table, th, td {
-            background-color: whitesmoke;
+            background-color: white;
             color: black;
         }
 
@@ -1069,25 +1070,25 @@ Now the other data-label we have added on each td comes into play.
             }
 
             td[name=tracker-cell] {
-                max-width: 215px;
-                min-width: 200px;
+                max-width: 185px;
+                min-width: 170px;
                 white-space: pre-wrap;
                 word-break: break-word;
             }
 
             td[name=created-cell] {
-                min-width: 220px;
-                max-width: 235px;
+                min-width: 140px;
+                max-width: 160px;
             }
 
             td[name=update-cell] {
-                min-width: 200px;
-                max-width: 215px;
+                min-width: 140px;
+                max-width: 160px;
             }
 
             td[name=status-cell] {
-                min-width: 115px;
-                max-width: 130px;
+                min-width: 130px;
+                max-width: 160px;
                 white-space: -moz-pre-wrap; /* Firefox */
                 white-space: -o-pre-wrap; /* Opera */
                 white-space: pre-wrap; /* Chrome */
@@ -1095,28 +1096,28 @@ Now the other data-label we have added on each td comes into play.
             }
 
             td[name=desc-cell] {
-                background-color: whitesmoke;
+                background-color: white;
                 min-width: 600px;
                 white-space: pre-line;
             }
 
 
         #row-table-td {
-            background-color: whitesmoke;
+            background-color: white;
         }
 
         .assign-self-a {
             font-weight: 600;
-            background-color: whitesmoke;
+            background-color: white;
         }
 
             .assign-self-a:hover {
-                background-color: whitesmoke;
+                background-color: white;
             }
 
 
         .table-scroll {
-            background-color: whitesmoke;
+            background-color: white;
         }
 
         .table {
@@ -1131,7 +1132,7 @@ Now the other data-label we have added on each td comes into play.
                 font-weight: bold;
                 padding: 5px;
                 color: #1e5484;
-                background: #efefef;
+                background: whitesmoke;
                 border: 1px solid #dddddd;
             }
 
@@ -1143,10 +1144,10 @@ Now the other data-label we have added on each td comes into play.
             }
 
             .table tbody tr:nth-child(odd) {
-                background: #fff;
+                background: white;
             }
 
             .table tbody tr:nth-child(even) {
-                background: #F7F7F7;
+                background: white;
             }
     }

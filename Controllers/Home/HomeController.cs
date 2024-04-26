@@ -21,7 +21,6 @@ namespace WebSupport.Controllers.Home
         RedmineContext context;
 
         private List<TrackerViewModel> trackersVM;
-        
         public HomeController(ILogger<HomeController> logger, RedmineContext context)
         {
             _logger = logger;
@@ -99,12 +98,15 @@ namespace WebSupport.Controllers.Home
                 string encodedUrl = System.Net.WebUtility.UrlEncode(message);
                 var urlmsg = tgMessage + encodedUrl;
 
-
-                using (WebClient client = new WebClient())
+                if (proj.ProjectId == 2)
                 {
-                    string response = client.DownloadString(urlmsg);
-                    await Console.Out.WriteLineAsync(response);
+                    using (WebClient client = new())
+                    {
+                        string response = client.DownloadString(urlmsg);
+                        await Console.Out.WriteLineAsync(response);
+                    }
                 }
+               
                 return View("AddIssue");
             }
 

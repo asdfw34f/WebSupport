@@ -1,26 +1,44 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Renci.SshNet;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using WebSupport.Account;
 using WebSupport.Data;
 using WebSupport.Repositories.Users;
 
 var builder = WebApplication.CreateBuilder(args);
+if (args.Length > 0) // NOTE: arguments are path to cert.pfx file and its optional password
+{
+    builder.WebHost.ConfigureKestrel(serverOptions =>
+    {
+        serverOptions.ListenAnyIP(443, listenOptions =>
+        {
+            listenOptions.UseHttps(args[0], args.Length > 1 ? args[1] : "");
+        });
+        serverOptions.ListenAnyIP(80); // NOTE: optionally listen on port 80, too
+    });
+}
+
+// NOTE: optionally, use HTTPS redirection
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = (int)System.Net.HttpStatusCode.PermanentRedirect; // CAN ALSO USE System.Net.HttpStatusCode.TemporaryRedirect
+    options.HttpsPort = 443;
+});
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var con = builder.Configuration.GetConnectionString("DefaultConnection");
-
-
-
-
-
-
 
 builder.Services.AddDbContext<RedmineContext>(
     options => options.UseMySQL(
@@ -35,7 +53,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options => options.LoginPath = "/Web-Support/login");
 builder.Services.AddAuthorization();
 
-var bhost = new HostBuilder();
+
 
 var app = builder.Build();
 app.UseRouting();
@@ -88,7 +106,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 
 app.MapControllerRoute(
     name: "default",

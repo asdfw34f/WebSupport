@@ -69,15 +69,15 @@
                 foreach (var issue in Model.issues)
                 {
                     <tr>
-                        <td data-label="Проект: " name="project-cell" class="cell-multi">&ensp;@issue.ProjectName</td>
-                        <td data-label="Трекер: " name="tracker-cell" id="row-table-td">&ensp;@issue.TrackerName</td>
-                        <td data-label="Тема: " id="row-table-td" name="subject-cell">&ensp;@issue.issue.Subject</td>
-                        <td data-label="Описание: " id="row-desc-table-td" style="" name="desc-cell" class="cell-multi">&ensp;@issue.issue.Description</td>
+                        <td data-label="Проект: &ensp;" name="project-cell" class="cell-multi">@issue.ProjectName</td>
+                        <td data-label="Трекер: &ensp;" name="tracker-cell" id="row-table-td">@issue.TrackerName</td>
+                        <td data-label="Тема: &ensp;" id="row-table-td" name="subject-cell">@issue.issue.Subject</td>
+                        <td data-label="Описание: &ensp;" id="row-desc-table-td" style="" name="desc-cell" class="cell-multi">@issue.issue.Description</td>
                         @{
                             if (issue.issue.CreatedOn != null)
                             {
-                                string time = ((DateTime)issue.issue.CreatedOn).ToString("f");
-                                <td data-label="Создано: " id="row-table-td" name="created-cell">&ensp;@time</td>
+                                string time = ((DateTime)issue.issue.CreatedOn).ToString("g");
+                                <td data-label="Создано: &ensp;" id="row-table-td" name="created-cell">@time</td>
                             }
                             else
                             {
@@ -86,12 +86,12 @@
                             }
                         }
 
-                        <td data-label="Статус: " id="row-table-td" name="status-cell">&ensp;@issue.status</td>
+                        <td data-label="Статус: &ensp;" id="row-table-td" name="status-cell">@issue.status</td>
                         @{
                             if (issue.issue.UpdatedOn != null)
                             {
-                                string time = ((DateTime)issue.issue.UpdatedOn).ToString("f");
-                                <td data-label="Обновлено: " id="row-table-td" name="update-cell">&ensp;@time</td>
+                                string time = ((DateTime)issue.issue.UpdatedOn).ToString("g");
+                                <td data-label="Обновлено: &ensp;" id="row-table-td" name="update-cell">@time</td>
                             }
                             else
                             {
