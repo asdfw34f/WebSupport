@@ -6,7 +6,7 @@
 *@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    ViewData["Title"] = "История моих задач";
     RedmineContext appContext = ViewBag.AppContext;
 
     IEnumerable<SelectListItem> statuses = new SelectList(Model.Statuses, "Id", "Name");
