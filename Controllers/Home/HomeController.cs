@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NuGet.DependencyResolver;
+using NuGet.Packaging.Signing;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -17,14 +18,17 @@ namespace WebSupport.Controllers.Home
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private const string tgMessage = "https://api.telegram.org/bot5171320687:AAGOti4QBF0hymVEqO0VW7ws-LWu5UuaGHk/sendMessage?chat_id=-1002068097170&text=";
+        //private const string tgMessage = "https://api.telegram.org/bot5171320687:AAGOti4QBF0hymVEqO0VW7ws-LWu5UuaGHk/sendMessage?chat_id=-1002068097170&text=";
+        //private const string tgMessageETC = "https://api.telegram.org/bot5171320687:AAGOti4QBF0hymVEqO0VW7ws-LWu5UuaGHk/sendMessage?chat_id=-1002015686799&text=";
+        private IConfiguration _conf;
         RedmineContext context;
 
         private List<TrackerViewModel> trackersVM;
-        public HomeController(ILogger<HomeController> logger, RedmineContext context)
+        public HomeController(ILogger<HomeController> logger, RedmineContext context, IConfiguration config)
         {
             _logger = logger;
             this.context = context;
+            _conf = config;
         }
 
         #region create issue
@@ -66,7 +70,7 @@ namespace WebSupport.Controllers.Home
 
                 var idTrack = Convert.ToInt32(Id);
                 var proj = await context.ProjectsTrackers.Where(t => t.TrackerId == idTrack).FirstAsync();
-
+                var project = await context.Projects.FindAsync(proj.ProjectId);
 
                 context.Issues.Add(
                     new DataEntities.Issue()
@@ -96,12 +100,27 @@ namespace WebSupport.Controllers.Home
 
 
                 string encodedUrl = System.Net.WebUtility.UrlEncode(message);
-                var urlmsg = tgMessage + encodedUrl;
 
-                if (proj.ProjectId == 2)
+                if (proj.ProjectId == 2 || project.Name.ToLower() == "отдел информационных технологий")
                 {
+                    var tgMessage = _conf.GetValue<string>("Telegram:ChannelIT");
+
                     using (WebClient client = new())
                     {
+                        var urlmsg = tgMessage + encodedUrl;
+
+                        string response = client.DownloadString(urlmsg);
+                        await Console.Out.WriteLineAsync(response);
+                    }
+                }
+                else if(proj.ProjectId == 3 || project.Name.ToLower() == "эксплуатационно-техническая служба")
+                {
+                        var tgMessage = _conf.GetValue<string>("Telegram:ChannelETC");
+                    using (WebClient client = new())
+                    {
+
+                        var urlmsg = tgMessage + encodedUrl;
+
                         string response = client.DownloadString(urlmsg);
                         await Console.Out.WriteLineAsync(response);
                     }
