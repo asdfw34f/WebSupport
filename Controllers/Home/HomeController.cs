@@ -41,7 +41,6 @@ namespace WebSupport.Controllers.Home
             {
                 return Redirect("/Web-Support/logout");
             }
-           
             
             var projects = await context.Projects.ToListAsync();
             var trackers = await context.Trackers.ToListAsync();
@@ -98,7 +97,6 @@ namespace WebSupport.Controllers.Home
 
                 var admins = await context.Users.Where(u => u.Admin == true).ToListAsync();
 
-
                 string encodedUrl = System.Net.WebUtility.UrlEncode(message);
 
                 if (proj.ProjectId == 2 || project.Name.ToLower() == "отдел информационных технологий")
@@ -128,7 +126,6 @@ namespace WebSupport.Controllers.Home
                
                 return View("AddIssue");
             }
-
         }
         #endregion
 
